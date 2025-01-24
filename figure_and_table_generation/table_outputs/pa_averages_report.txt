@@ -1,0 +1,222 @@
+====================================================================================================
+                                               FOREST                                               
+====================================================================================================
+	PA_Forest_steps_4000000_rng_seed_444343_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.8146849485168435
+		Sen: 5.7392966275073025
+	PA_Forest_steps_4000000_rng_seed_224116_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.833308234385559
+		Sen: 5.724137465006275
+	PA_Forest_steps_4000000_rng_seed_885844_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.848731099838676
+		Sen: 5.753442923437796
+	PA_Forest_steps_4000000_rng_seed_491349_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.793198185932527
+		Sen: 5.7288194477047165
+	PA_Forest_steps_4000000_rng_seed_397747_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.798136408468517
+		Sen: 5.7560075531929495
+	PA_Forest_steps_4000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.807403490216816
+		Sen: 5.7291957117446275
+	PA_Forest_steps_4000000_rng_seed_183080_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.8265532544378695
+		Sen: 5.737220368916797
+	PA_Forest_steps_4000000_rng_seed_528170_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.833280045675136
+		Sen: 5.729144542772861
+	PA_Forest_steps_4000000_rng_seed_75723_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.817663549466335
+		Sen: 5.7463507669367155
+	PA_Forest_steps_4000000_rng_seed_416713_gamma_0.0_alpha_1.0_ndists_18_20241024_133608_tallies.parquet
+		Pres: 6.83124471225427
+		Sen: 5.740899535602
+
+Average Pres Forest: 6.820420392919255
+Average Sen Forest: 5.738451494282204
+
+====================================================================================================
+                                               RECOMA                                               
+====================================================================================================
+	PA_ReComA_steps_100000000_rng_seed_528170_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.842054240515067
+		Sen: 5.726104084029756
+	PA_ReComA_steps_100000000_rng_seed_444343_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.846918526842615
+		Sen: 5.725845340601393
+	PA_ReComA_steps_100000000_rng_seed_278986_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.844178113243143
+		Sen: 5.727876667687212
+	PA_ReComA_steps_100000000_rng_seed_75723_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.84474301804845
+		Sen: 5.727921377620566
+	PA_ReComA_steps_100000000_rng_seed_75723_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.845267262573385
+		Sen: 5.728320633532005
+	PA_ReComA_steps_100000000_rng_seed_444343_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.844387699186368
+		Sen: 5.727795103503164
+	PA_ReComA_steps_100000000_rng_seed_528170_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.844309929260933
+		Sen: 5.728300559082233
+	PA_ReComA_steps_100000000_rng_seed_224116_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.842567320090506
+		Sen: 5.727962884172753
+	PA_ReComA_steps_100000000_rng_seed_278986_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.843611364793037
+		Sen: 5.728473382629827
+	PA_ReComA_steps_100000000_rng_seed_224116_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.842076823756895
+		Sen: 5.7270533186529615
+
+Average Pres ReComA: 6.84401142983104
+Average Sen ReComA: 5.727565335151188
+
+====================================================================================================
+                                               RECOMB                                               
+====================================================================================================
+	PA_ReComB_steps_100000000_rng_seed_75723_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.84020624547346
+		Sen: 5.748046742812124
+	PA_ReComB_steps_100000000_rng_seed_444343_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.8326237412282325
+		Sen: 5.749525303032145
+	PA_ReComB_steps_100000000_rng_seed_444343_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.842557595318648
+		Sen: 5.741304383442694
+	PA_ReComB_steps_100000000_rng_seed_224116_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.830192161796645
+		Sen: 5.744343097330709
+	PA_ReComB_steps_100000000_rng_seed_278986_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.8333155391414575
+		Sen: 5.7450903409526655
+	PA_ReComB_steps_100000000_rng_seed_278986_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.828629499986004
+		Sen: 5.747679898736874
+	PA_ReComB_steps_100000000_rng_seed_528170_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.832204875810495
+		Sen: 5.757825550208394
+	PA_ReComB_steps_100000000_rng_seed_528170_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.836032357140477
+		Sen: 5.7473280688822745
+	PA_ReComB_steps_100000000_rng_seed_75723_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.83648972443677
+		Sen: 5.748236542864481
+	PA_ReComB_steps_100000000_rng_seed_224116_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.838988373771123
+		Sen: 5.751320168456775
+
+Average Pres ReComB: 6.835124011410332
+Average Sen ReComB: 5.748070009671913
+
+====================================================================================================
+                                               RECOMC                                               
+====================================================================================================
+	PA_ReComC_steps_100000000_rng_seed_75723_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.830850697957913
+		Sen: 5.751585151103942
+	PA_ReComC_steps_100000000_rng_seed_75723_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.832685888303419
+		Sen: 5.748491427175344
+	PA_ReComC_steps_100000000_rng_seed_444343_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.833074730925428
+		Sen: 5.750867364089759
+	PA_ReComC_steps_100000000_rng_seed_224116_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.833878223571684
+		Sen: 5.749579117116403
+	PA_ReComC_steps_100000000_rng_seed_224116_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.832381298407136
+		Sen: 5.750450670420335
+	PA_ReComC_steps_100000000_rng_seed_278986_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.831146172061246
+		Sen: 5.748848650618724
+	PA_ReComC_steps_100000000_rng_seed_528170_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.8324238278471
+		Sen: 5.749462098716857
+	PA_ReComC_steps_100000000_rng_seed_444343_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.83299427860556
+		Sen: 5.74982322204242
+	PA_ReComC_steps_100000000_rng_seed_278986_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.830972321010434
+		Sen: 5.747762512417898
+	PA_ReComC_steps_100000000_rng_seed_528170_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.834745698022634
+		Sen: 5.748811824599453
+
+Average Pres ReComC: 6.832515313671256
+Average Sen ReComC: 5.749568203830114
+
+====================================================================================================
+                                               RECOMD                                               
+====================================================================================================
+	PA_ReComD_steps_100000000_rng_seed_278986_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.825851001953387
+		Sen: 5.772837150348253
+	PA_ReComD_steps_100000000_rng_seed_444343_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.825427276407868
+		Sen: 5.7706972328719575
+	PA_ReComD_steps_100000000_rng_seed_528170_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.826227789493254
+		Sen: 5.775286016415521
+	PA_ReComD_steps_100000000_rng_seed_75723_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.829730126254887
+		Sen: 5.769946268663352
+	PA_ReComD_steps_100000000_rng_seed_75723_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.8212314620013785
+		Sen: 5.770513522095999
+	PA_ReComD_steps_100000000_rng_seed_444343_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.827209547904582
+		Sen: 5.765288697906571
+	PA_ReComD_steps_100000000_rng_seed_224116_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.8256492333468595
+		Sen: 5.764164705614038
+	PA_ReComD_steps_100000000_rng_seed_528170_plan_2011_PLA_1_20240618_174406_tallies.parquet
+		Pres: 6.828820912956986
+		Sen: 5.777169871735133
+	PA_ReComD_steps_100000000_rng_seed_278986_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.822560972556856
+		Sen: 5.7758343064057
+	PA_ReComD_steps_100000000_rng_seed_224116_plan_rand_dist_eps0p01_20240618_174406_tallies.parquet
+		Pres: 6.82634194824105
+		Sen: 5.775044221339533
+
+Average Pres ReComD: 6.825905027111711
+Average Sen ReComD: 5.771678199339606
+
+====================================================================================================
+                                              REVRECOM                                              
+====================================================================================================
+	PA_RevReCom_steps_5000000000_rng_seed_75723_plan_rand_dist_eps0p01_20240613_185511_tallies.parquet
+		Pres: 6.815232433653835
+		Sen: 5.730659368766955
+	PA_RevReCom_steps_5000000000_rng_seed_528170_plan_2011_PLA_1_20240613_185511_tallies.parquet
+		Pres: 6.836898025057526
+		Sen: 5.752099323030898
+	PA_RevReCom_steps_5000000000_rng_seed_444343_plan_rand_dist_eps0p01_20240613_185511_tallies.parquet
+		Pres: 6.845933189934782
+		Sen: 5.75509749939854
+	PA_RevReCom_steps_5000000000_rng_seed_224116_plan_rand_dist_eps0p01_20240613_185511_tallies.parquet
+		Pres: 6.804237058712206
+		Sen: 5.730731596371509
+	PA_RevReCom_steps_5000000000_rng_seed_75723_plan_2011_PLA_1_20240613_185511_tallies.parquet
+		Pres: 6.800117762361855
+		Sen: 5.776672578910575
+	PA_RevReCom_steps_5000000000_rng_seed_278986_plan_rand_dist_eps0p01_20240613_185511_tallies.parquet
+		Pres: 6.823898065698419
+		Sen: 5.7338854605925915
+	PA_RevReCom_steps_5000000000_rng_seed_224116_plan_2011_PLA_1_20240613_185511_tallies.parquet
+		Pres: 6.824815898577691
+		Sen: 5.743710602127842
+	PA_RevReCom_steps_5000000000_rng_seed_528170_plan_rand_dist_eps0p01_20240613_185511_tallies.parquet
+		Pres: 6.799531922709979
+		Sen: 5.762287240969871
+	PA_RevReCom_steps_5000000000_rng_seed_278986_plan_2011_PLA_1_20240613_185511_tallies.parquet
+		Pres: 6.803505012851853
+		Sen: 5.746283864529303
+	PA_RevReCom_steps_5000000000_rng_seed_444343_plan_2011_PLA_1_20240613_185511_tallies.parquet
+		Pres: 6.814742535906203
+		Sen: 5.73701094532339
+
+Average Pres RevReCom: 6.816891190546434
+Average Sen RevReCom: 5.746843848002147
+

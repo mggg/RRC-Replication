@@ -1,0 +1,4 @@
+# Ignore everything in this folder, but keep the folder anyway so that replication is
+# easier to do from a straight clone of the project
+*
+!.gitignore
