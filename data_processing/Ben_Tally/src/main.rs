@@ -35,6 +35,7 @@ use ben::decode::BenDecoder;
 use clap::{Parser, ValueEnum};
 use pbr::ProgressBar;
 use polars::prelude::*;
+use rand::Rng;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_json::{Result, Value};
@@ -66,6 +67,10 @@ struct Args {
     ben_file: String,
     #[arg(short, long, default_value_t = false)]
     normalize: bool,
+    #[arg(short, long)]
+    max_accepted: Option<usize>,
+    #[arg(short, long, default_value_t = true)]
+    mkv_rand_reassignment_off: bool,
     #[arg(short, long, num_args(1..))]
     keys: Vec<String>,
 }
@@ -113,11 +118,12 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
             tally_and_save_cut_edges(graph, &args.ben_file, &output_file)?;
         }
         Mode::ChangedAssignments => {
-            let output_file = &args
-                .ben_file
-                .replace(".jsonl.ben", "_changed_assignments.txt");
-
-            tally_and_save_changed_assignments(&args.ben_file, output_file, args.normalize)?;
+            tally_and_save_changed_assignments(
+                &args.ben_file,
+                args.normalize,
+                args.max_accepted,
+                args.mkv_rand_reassignment_off,
+            )?;
         }
     }
     Ok(())
@@ -480,7 +486,7 @@ fn tally_and_save_cut_edges(
     for _ in line_checker.enumerate() {
         line_count += 1;
     }
-    println!("Found {:?} unique plans in {:?}\r", line_count, basename);
+    eprintln!("Found {:?} unique plans in {:?}\r", line_count, basename);
 
     let pb_step_size = (line_count / n_pb_tics as usize) as u32;
     let mut previous_step = 0;
@@ -581,6 +587,14 @@ fn tally_and_save_cut_edges(
     Ok(())
 }
 
+fn find_first_disagreement_index(vec1: &[u16], vec2: &[u16]) -> Option<(usize, (u16, u16))> {
+    vec1.iter()
+        .zip(vec2.iter())
+        .enumerate()
+        .find(|(_, (a, b))| a != b)
+        .map(|(i, (&a, &b))| (i, (a, b)))
+}
+
 /// Tallies and saves the number of changed assignments (flips) to a text file.
 ///
 /// # Arguments
@@ -590,6 +604,17 @@ fn tally_and_save_cut_edges(
 /// * `normalize` - A flag on whether to normalize the results relative to the number
 ///     of possible times that a partition could be flipped (the normalization will be
 ///     on the scale of [0.0, 0.5] due to the way that reassignment works).
+/// * `max_accepted` - An optional flag on the maximum number of accepted changes to
+///     consider. If `None`, all changes will be considered.
+/// * `with_random_reassignments` - A flag to determine if the random reassignments should
+///     be used when considering a merge-split operation for ensembles arising from a
+///     MCMC method. The code fore many of these methods has an inherit bias towards a
+///     particular way of labeling the districts which can bias the change-assignment count
+///     since it may favor canonicalizing the assignment or take the convention that the
+///     district with the most moved population gets the smaller label. To account for
+///     these choices and to reconstruct the ensemble appropriately, we need to keep track
+///     of the merged and split districts and then randomize the reassignment labels. Do not
+///     set this flag to true if using a method that does not use MCMC merge-split.
 ///
 /// # Returns
 ///
@@ -597,14 +622,12 @@ fn tally_and_save_cut_edges(
 ///     failure of the operation.
 fn tally_and_save_changed_assignments(
     in_ben_file: &str,
-    out_file_name: &str,
     normalize: bool,
+    max_accepted: Option<usize>,
+    with_random_reassignments: bool,
 ) -> std::result::Result<(), Box<dyn std::error::Error>> {
-    let n_pb_tics = 100;
-
-    let mut pb = ProgressBar::new(n_pb_tics);
-
     let mut ben_file = File::open(in_ben_file).expect("BEN file not found");
+    let mut rng = rand::rng();
 
     let line_checker = BenDecoder::new(&ben_file).expect("Failed to initialize decoder");
 
@@ -619,9 +642,28 @@ fn tally_and_save_changed_assignments(
     for _ in line_checker.enumerate() {
         line_count += 1;
     }
-    println!("Found {:?} unique plans in {:?}\r", line_count, basename);
 
-    let pb_step_size = (line_count / n_pb_tics as usize) as u32;
+    eprintln!("Found {:?} unique plans in {:?}\r", line_count, basename);
+
+    if let Some(max_accepted) = max_accepted {
+        line_count = max_accepted as usize;
+    }
+
+    let out_file_name = &in_ben_file.replace(
+        ".jsonl.ben",
+        format!("_accept_{}_changed_assignments.txt", line_count).as_str(),
+    );
+
+    let mut n_pb_tics = 100;
+
+    let mut pb_step_size = (line_count / n_pb_tics as usize) as usize;
+
+    if line_count < n_pb_tics as usize {
+        n_pb_tics = line_count as u64;
+        pb_step_size = 1;
+    }
+
+    let mut pb = ProgressBar::new(n_pb_tics);
 
     ben_file.seek(SeekFrom::Start(0))?;
 
@@ -661,11 +703,54 @@ fn tally_and_save_changed_assignments(
         )));
     };
 
-    let mut count = 0;
+    let mut count: usize = 1;
+    let mut full_count: usize = 1;
+    let max_assignment = *curr_assignment.iter().max().unwrap();
+    let mut current_permutation = (0..=max_assignment).collect::<Vec<u16>>();
     for result in decoder {
         count += 1;
+        full_count += 1;
         match result {
-            Ok((assignment, _)) => {
+            Ok((mut assignment, _)) => {
+                // NOTE: the current assignment will already have the permutation
+                // applied since it is the assignment from the previous iteration of
+                // the loop.
+                assignment = assignment
+                    .iter_mut()
+                    .map(|&mut v| current_permutation[v as usize])
+                    .collect::<Vec<u16>>();
+                if with_random_reassignments {
+                    // Flip the assignment with probablitly 0.5
+                    if rng.random_bool(0.5) {
+                        let (_idx, (a, b)) =
+                            find_first_disagreement_index(&curr_assignment, &assignment)
+                                .unwrap_or_else(|| (0, (1, 1)));
+                        assignment = assignment
+                            .iter_mut()
+                            .map(|&mut v| {
+                                if v == a {
+                                    b
+                                } else if v == b {
+                                    a
+                                } else {
+                                    v
+                                }
+                            })
+                            .collect::<Vec<u16>>();
+                        current_permutation = current_permutation
+                            .iter()
+                            .map(|&v| {
+                                if v == a {
+                                    b
+                                } else if v == b {
+                                    a
+                                } else {
+                                    v
+                                }
+                            })
+                            .collect::<Vec<u16>>()
+                    }
+                }
                 curr_assignment
                     .iter()
                     .zip(assignment.iter().zip(dif_count.iter_mut()))
@@ -685,21 +770,29 @@ fn tally_and_save_changed_assignments(
             pb.inc();
             count = count - pb_step_size;
         }
+        if full_count >= line_count {
+            break;
+        }
     }
 
+    // NOTE: We divide by line_count - 1 because if there are n accpeted steps
+    // then we can reassign a single unit at most n - 1 times.
     let final_count = if normalize {
         dif_count
             .iter()
-            .map(|&x| x as f64 / count as f64)
+            .map(|&x| x as f64 / (line_count - 1) as f64)
             .collect::<Vec<f64>>()
     } else {
         dif_count.iter().map(|&x| x as f64).collect::<Vec<f64>>()
     };
 
     pb.finish();
+    eprintln!("Final count: {:?}", full_count);
     eprintln!("Writing final output...");
 
     out.write(format!("{:?}", final_count).as_bytes())
+        .expect("Could not write to output file");
+    out.write(format!("\nTotal Accepted: {:?}", line_count).as_bytes())
         .expect("Could not write to output file");
 
     eprintln!("Done!");
