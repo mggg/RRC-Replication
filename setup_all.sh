@@ -3,12 +3,23 @@
 julia aux_script_files/setup.jl
 export JULIA_PROJECT=$(pwd)
 
-# python3 -m venv .venv 
+# Get the Python version (only the major and minor numbers)
+GOOD_PYTHON_VERSION=$(python3 -c "import sys; print(sys.version_info.minor >= 10)")
 
-# source .venv/bin/activate
-# pip3 install -r py_requirements.txt
+# Check if Python is 3.9 or higher but less than 4.0
+if [[ "$GOOD_PYTHON_VERSION" == "True" ]]
+then
+    echo "Found compatible Python version"
+    python3 -m venv .venv 
+
+    source .venv/bin/activate
+    pip3 install -r py_requirements.txt
+else 
+    echo "Error: Python version must be >=3.10. Please install a compatible version."
+fi
 
 
-# cargo install binary-ensemble
-# cargo install --git https://github.com/peterrrock2/msms_parser.git
-# cargo install --path ./data_processing/Ben_Tally
+cargo install binary-ensemble --version 0.2.0
+cargo install --git https://github.com/peterrrock2/msms_parser.git --rev 3c37fc5a57b1b9480b95d3d01cad9c37e6564f59
+cargo install --git https://github.com/mggg/frcw.rs --rev b28260bc1eba425731b7ae6a194ab4a2cd4532b6
+cargo install --path ./data_processing/Ben_Tally

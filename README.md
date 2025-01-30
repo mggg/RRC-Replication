@@ -8,44 +8,44 @@ This repository is not complete at this time.
 
 ## Folder Descriptions
 
-    - aux_script_files: Contains a script to set up the Julia environment and install the
-        necessary packages.
-    - cli_file: Contains the CLIs created for running both the SMC and the Forest ReCom 
-        methods. These were necessary for batching jobs on the HPC.
-    - data_processing: Contains the main file used for processing much of the raw data
-        into a format that can be used for the figure scripts.
-        - Ben_Tally: Contains the `Ben-Tally` rust library which is used to tally the 
-            cut edges, key values, and assignment filp counts for ensembles of interest.
-        - other_processing_scripts: Contains more scripts used for data processing. Mainly,
-            this directory contains the scipts used to generate the complete enumeration of
-            7x7 grid graphs into 7-ominos.
-    - example_files: Contains some example files that can be used to recreate several steps in
-        the analysis pipeline.
-    - figure_and_table_generation: Contains the scripts used to generate the figures and tables
+- aux_script_files: Contains a script to set up the Julia environment and install the
+    necessary packages.
+- cli_file: Contains the CLIs created for running both the SMC and the Forest ReCom 
+    methods. These were necessary for batching jobs on the HPC.
+- data_processing: Contains the main file used for processing much of the raw data
+    into a format that can be used for the figure scripts.
+    - Ben_Tally: Contains the `Ben-Tally` rust library which is used to tally the 
+        cut edges, key values, and assignment filp counts for ensembles of interest.
+    - other_processing_scripts: Contains more scripts used for data processing. Mainly,
+        this directory contains the scipts used to generate the complete enumeration of
+        7x7 grid graphs into 7-ominos.
+- example_files: Contains some example files that can be used to recreate several steps in
+    the analysis pipeline.
+- figure_and_table_generation: Contains the scripts used to generate the figures and tables
+    in the paper.
+    - figure_scripts: Contains the scripts used to generate the figures in the paper.
+    - figures: Contains copies of the figures that were used in the paper.
+    - table-outputs: Contains the outputs of the table scripts. Used to construct tables 
         in the paper.
-        - figure_scripts: Contains the scripts used to generate the figures in the paper.
-        - figures: Contains copies of the figures that were used in the paper.
-        - table-outputs: Contains the outputs of the table scripts. Used to construct tables 
-            in the paper.
-        - table_scripts: Contains the scripts used to generate the tables in the paper.
-    - hpc_files: 
-        - hpc_logs: An empty folder that is left in place to make the replication process easier
-            when running slurm scripts.
-        - hpc_processed_data: An empty folder that is left in place to make the replication process easier
-            when running slurm scripts.
-        - hpc_raw_data: An empty folder that is left in place to make the replication process easier
-            when running slurm scripts.
-        - slurm_scripts: Contains copies of the slurm scripts used to run the Reversible ReCom, Forest
-            ReCom, and SMC on the Tufts HPC.
-    - JSON_dualgraphs: Contains the JSON-formatted dual graphs used in the creation of our
-        figures.
-    - other_data_files: Contains some data and script files used to process the remainder 
-        of the data obtained from experimental runs.
-        - data_files: Additional data files needed for our analysis.
-        - script_files: Additional scripts used to make relevant data files. These scripts
-            were generally not used in the cluster, but were instead ran on a local machine.
-    - shapefiles: Contains the shapefiles used in the creation of some of our figures (necessary
-        for SMC).
+    - table_scripts: Contains the scripts used to generate the tables in the paper.
+- hpc_files: 
+    - hpc_logs: An empty folder that is left in place to make the replication process easier
+        when running slurm scripts.
+    - hpc_processed_data: An empty folder that is left in place to make the replication process easier
+        when running slurm scripts.
+    - hpc_raw_data: An empty folder that is left in place to make the replication process easier
+        when running slurm scripts.
+    - slurm_scripts: Contains copies of the slurm scripts used to run the Reversible ReCom, Forest
+        ReCom, and SMC on the Tufts HPC.
+- JSON_dualgraphs: Contains the JSON-formatted dual graphs used in the creation of our
+    figures.
+- other_data_files: Contains some data and script files used to process the remainder 
+    of the data obtained from experimental runs.
+    - data_files: Additional data files needed for our analysis.
+    - script_files: Additional scripts used to make relevant data files. These scripts
+        were generally not used in the cluster, but were instead ran on a local machine.
+- shapefiles: Contains the shapefiles used in the creation of some of our figures (necessary
+    for SMC).
 
 ## Simple Setup
 

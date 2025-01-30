@@ -10,6 +10,8 @@ packages = [
     "Combinatorics",
     "StatsBase",
     "ArgParse",
+    "LightGraphs",
+    "RandomNumbers"
 ]
 
 for pkg in packages
