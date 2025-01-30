@@ -52,7 +52,7 @@ def make_plot_dists(rrc_forest, lower, upper, n_dists, glob_expr):
     out_path = Path("../figures")
     data_path = Path("../../hpc_files/hpc_processed_data/50x50")
 
-    _, ax = plt.subplots(figsize=(25, 10))
+    _, ax = plt.subplots(figsize=(25, 10), dpi=400)
 
     for i, (n, f) in enumerate(rrc_forest.items()):
         df = pd.read_parquet(f)
@@ -79,7 +79,7 @@ def make_plot_dists(rrc_forest, lower, upper, n_dists, glob_expr):
         bbox_inches="tight",
     )
 
-    _, ax = plt.subplots(figsize=(25, 10))
+    _, ax = plt.subplots(figsize=(25, 10), dpi=400)
 
     recom_files = glob(str(data_path.joinpath(glob_expr).resolve()))
     recom_files = [Path(file).resolve() for file in recom_files]

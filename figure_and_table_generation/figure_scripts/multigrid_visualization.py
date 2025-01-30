@@ -16,6 +16,7 @@ import geopandas as gpd
 from pathlib import Path
 from gerrychain import Graph
 import networkx as nx
+from matplotlib import font_manager
 
 
 def make_square_multigrid_heatmap(
@@ -39,9 +40,18 @@ def make_square_multigrid_heatmap(
     -------
     None
     """
-    _, ax = plt.subplots(2, 3, figsize=(18, 12))
+    fig, ax = plt.subplots(2, 3, figsize=(18, 12), dpi=400)
 
     outpath = Path(output_folder)
+
+    max_val = 0
+    min_val = float("inf")
+    for i, file in enumerate(file_list):
+        with open(file, "r") as f:
+            sq_data = f.readline()
+            sq_data = ast.literal_eval(sq_data)
+            max_val = max(max_val, max(sq_data))
+            min_val = min(min_val, min(sq_data))
 
     for i, file in enumerate(file_list):
         with open(file, "r") as f:
@@ -57,8 +67,8 @@ def make_square_multigrid_heatmap(
             ax=ax[row_pos, col_pos],
             column="reassign",
             cmap="viridis",
-            vmin=0.0,
-            vmax=0.5,
+            vmin=min_val,
+            vmax=max_val,
         )
         ax[row_pos, col_pos].set_xticks([])
         ax[row_pos, col_pos].set_yticks([])
@@ -76,10 +86,60 @@ def make_square_multigrid_heatmap(
                 file_to_title_dict[file_name], y=0.97, size=20, weight="bold"
             )
 
-    plt.tight_layout(pad=0.0, w_pad=0.0, h_pad=0.0)
+    cax = fig.add_axes([1.01, 0.1, 0.02, 0.8])  # [left, bottom, width, height]
+    sm = plt.cm.ScalarMappable(
+        cmap="viridis", norm=plt.Normalize(vmin=min_val, vmax=max_val)
+    )
+    cbar = fig.colorbar(sm, cax=cax, orientation="vertical")
+
+    font_properties = font_manager.FontProperties(weight="bold", size=16)
+    for label in cbar.ax.get_yticklabels():
+        label.set_fontproperties(font_properties)
+        plt.tight_layout(pad=0.0, w_pad=0.0, h_pad=0.0)
+
     plt.savefig(
         outpath.joinpath("square_multigrid_heatmap_all.png"), bbox_inches="tight"
     )
+
+    # ===================
+    # == MAKE COLORBAR ==
+    # ===================
+
+    norm = colors.Normalize(vmin=min_val, vmax=max_val)
+    cmap = cm.get_cmap("viridis")
+
+    sm = matplotlib.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+
+    fig, cax = plt.subplots(figsize=(18 * 0.6, 12 * 0.1), dpi=400)
+    fig.subplots_adjust(bottom=0.5)
+
+    cbar = fig.colorbar(sm, cax=cax, orientation="horizontal")
+
+    font_properties = font_manager.FontProperties(weight="bold", size=16)
+    for label in cbar.ax.get_xticklabels():
+        label.set_fontproperties(font_properties)
+
+    plt.savefig(
+        "../figures/square_multigrid_heatbar_horizontal.png", bbox_inches="tight"
+    )
+
+    norm = colors.Normalize(vmin=min_val, vmax=max_val)
+    cmap = cm.get_cmap("viridis")
+
+    sm = matplotlib.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+
+    fig, cax = plt.subplots(figsize=(18 * 0.02, 12 * 0.8), dpi=400)
+    fig.subplots_adjust(bottom=0.5)
+
+    cbar = fig.colorbar(sm, cax=cax, orientation="vertical")
+
+    font_properties = font_manager.FontProperties(weight="bold", size=12)
+    for label in cbar.ax.get_yticklabels():
+        label.set_fontproperties(font_properties)
+
+    plt.savefig("../figures/square_multigrid_heatbar_vertical.png", bbox_inches="tight")
 
 
 def make_square_multigrid(JSON_file, output_folder):
@@ -104,7 +164,7 @@ def make_square_multigrid(JSON_file, output_folder):
     pos = {n: (d["x"], d["y"]) for n, d in square_multigrid.nodes(data=True)}
     sizes = [20 * d["TOTPOP"] for _, d in square_multigrid.nodes(data=True)]
 
-    _, ax = plt.subplots(figsize=(8, 8))
+    _, ax = plt.subplots(figsize=(8, 8), dpi=400)
     nx.draw(
         square_multigrid,
         pos,
@@ -139,9 +199,18 @@ def make_linear_multigrid_heatmap(
     -------
     None
     """
-    _, ax = plt.subplots(3, 2, figsize=(33, 9))
+    fig, ax = plt.subplots(3, 2, figsize=(33, 9), dpi=400)
 
     outpath = Path(output_folder)
+
+    max_val = 0
+    min_val = float("inf")
+    for i, file in enumerate(file_list):
+        with open(file, "r") as f:
+            lin_data = f.readline()
+            lin_data = ast.literal_eval(lin_data)
+            max_val = max(max_val, max(lin_data))
+            min_val = min(min_val, min(lin_data))
 
     for i, file in enumerate(file_list):
         with open(file, "r") as f:
@@ -157,8 +226,8 @@ def make_linear_multigrid_heatmap(
             ax=ax[row_pos, col_pos],
             column="reassign",
             cmap="viridis",
-            vmin=0.0,
-            vmax=0.5,
+            vmin=min_val,
+            vmax=max_val,
         )
         ax[row_pos, col_pos].set_xticks([])
         ax[row_pos, col_pos].set_yticks([])
@@ -193,10 +262,41 @@ def make_linear_multigrid_heatmap(
                 fontsize=20,
             )
 
+    cax = fig.add_axes([0.2, -0.08, 0.6, 0.08])  # [left, bottom, width, height]
+    sm = plt.cm.ScalarMappable(
+        cmap="viridis", norm=plt.Normalize(vmin=min_val, vmax=max_val)
+    )
+    cbar = fig.colorbar(sm, cax=cax, orientation="horizontal")
+
+    font_properties = font_manager.FontProperties(weight="bold", size=16)
+    for label in cbar.ax.get_xticklabels():
+        label.set_fontproperties(font_properties)
+
     plt.tight_layout(w_pad=0)
     plt.savefig(
         outpath.joinpath("linear_multigrid_heatmap_all.png"), bbox_inches="tight"
     )
+
+    # ===================
+    # == MAKE COLORBAR ==
+    # ===================
+
+    norm = colors.Normalize(vmin=min_val, vmax=max_val)
+    cmap = cm.get_cmap("viridis")
+
+    sm = matplotlib.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+
+    fig, cax = plt.subplots(figsize=(33 * 0.6, 9 * 0.2), dpi=400)
+    fig.subplots_adjust(bottom=0.5)
+
+    cbar = fig.colorbar(sm, cax=cax, orientation="horizontal")
+
+    font_properties = font_manager.FontProperties(weight="bold", size=16)
+    for label in cbar.ax.get_xticklabels():
+        label.set_fontproperties(font_properties)
+
+    plt.savefig("../figures/linear_multigrid_heatbar.png", bbox_inches="tight")
 
 
 def make_linear_multigrid(JSON_file, output_folder):
@@ -221,7 +321,7 @@ def make_linear_multigrid(JSON_file, output_folder):
     pos = {n: (d["x"], d["y"]) for n, d in linear_multigrid.nodes(data=True)}
     sizes = [10 * d["TOTPOP"] for _, d in linear_multigrid.nodes(data=True)]
 
-    _, ax = plt.subplots(figsize=(60, 10))
+    _, ax = plt.subplots(figsize=(60, 10), dpi=400)
     nx.draw(
         linear_multigrid,
         pos,
@@ -241,7 +341,7 @@ if __name__ == "__main__":
     # ===================================
     file_list = sorted(
         glob(
-            "../../hpc_files/hpc_processed_data/square_multigrid/square*changed_assignments.txt"
+            "../../other_data_files/processed_data_files/square_multigrid/square*changed_assignments.txt",
         )
     )
     new_file_list = [None] * 6
@@ -256,12 +356,12 @@ if __name__ == "__main__":
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
     flie_to_title = {
-        "square_A_10M_changed_assignments": "ReCom-A",
-        "square_B_10M_changed_assignments": "ReCom-B",
-        "square_C_10M_changed_assignments": "ReCom-C",
-        "square_D_10M_changed_assignments": "ReCom-D",
-        "square_rev_1B_changed_assignments": "RevReCom",
-        "square_forest_1M_changed_assignments": "Forest ReCom",
+        "square_A_1M_accept_50000_changed_assignments": "ReCom-A",
+        "square_B_1M_accept_50000_changed_assignments": "ReCom-B",
+        "square_C_1M_accept_50000_changed_assignments": "ReCom-C",
+        "square_D_1M_accept_50000_changed_assignments": "ReCom-D",
+        "square_rev_100M_accept_50000_changed_assignments": "RevReCom",
+        "square_forest_1M_jl_accept_50000_changed_assignments": "Forest ReCom",
     }
 
     make_square_multigrid_heatmap(
@@ -282,15 +382,12 @@ if __name__ == "__main__":
 
     file_list = sorted(
         glob(
-            "../../hpc_files/hpc_processed_data/linear_multigrid/linear*changed_assignments.txt"
+            "../../other_data_files/processed_data_files/linear_multigrid/linear*changed_assignments.txt",
         )
     )
     new_file_list = [None] * 6
 
     linear_gdf = gpd.read_file("../../shapefiles/linear_multigrid/linear_multigrid.shp")
-
-    for i, file in enumerate(file_list):
-        print(i, file)
 
     new_order = [0, 1, 2, 3, 5, 4]
     for i in range(6):
@@ -300,12 +397,12 @@ if __name__ == "__main__":
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
     flie_to_title = {
-        "linear_A_10M_changed_assignments": "ReCom-A",
-        "linear_B_10M_changed_assignments": "ReCom-B",
-        "linear_C_10M_changed_assignments": "ReCom-C",
-        "linear_D_10M_changed_assignments": "ReCom-D",
-        "linear_rev_1B_changed_assignments": "RevReCom",
-        "linear_forest_1M_changed_assignments": "Forest ReCom",
+        "linear_A_1M_accept_50000_changed_assignments": "ReCom-A",
+        "linear_B_1M_accept_50000_changed_assignments": "ReCom-B",
+        "linear_C_1M_accept_50000_changed_assignments": "ReCom-C",
+        "linear_D_1M_accept_50000_changed_assignments": "ReCom-D",
+        "linear_rev_200M_accept_50000_changed_assignments": "RevReCom",
+        "linear_forest_1M_jl_accept_50000_changed_assignments": "Forest ReCom",
     }
 
     make_linear_multigrid_heatmap(
@@ -319,23 +416,3 @@ if __name__ == "__main__":
         JSON_file="../../JSON_dualgraphs/linear_multigrid.json",
         output_folder="../figures",
     )
-
-    # ===================
-    # == MAKE COLORBAR ==
-    # ===================
-
-    norm = colors.Normalize(vmin=0.0, vmax=0.5)
-    cmap = cm.get_cmap("viridis")
-
-    sm = matplotlib.cm.ScalarMappable(cmap=cmap, norm=norm)
-    sm.set_array([])
-
-    fig, cax = plt.subplots(figsize=(6, 1))
-    fig.subplots_adjust(bottom=0.5)
-
-    cbar = fig.colorbar(sm, cax=cax, orientation="horizontal")
-    cbar.ax.xaxis.set_ticks_position("top")
-    cbar.ax.xaxis.set_label_position("top")
-    cbar.ax.invert_xaxis()
-
-    plt.savefig("../figures/multigrid_heatbar.png", bbox_inches="tight")

@@ -161,7 +161,7 @@ if __name__ == "__main__":
     # ======================
     # + START MAKING PLOTS +
     # ======================
-    _, ax = plt.subplots(figsize=(25, 10))
+    _, ax = plt.subplots(figsize=(25, 10), dpi=400)
 
     sns.lineplot(
         x=was_full_1f_ticks,

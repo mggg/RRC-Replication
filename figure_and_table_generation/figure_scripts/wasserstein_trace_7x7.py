@@ -108,7 +108,7 @@ def make_rev_forest_comparison(
         resolution=n_forest / n_items,
     )
 
-    _, ax = plt.subplots(figsize=(15, 10))
+    _, ax = plt.subplots(figsize=(15, 10), dpi=400)
 
     # Adjust font sizes
     plt.rcParams.update(
@@ -242,7 +242,7 @@ def make_recom_comparison(
         resolution=n_accepted / n_items,
     )
 
-    _, ax = plt.subplots(figsize=(15, 10))
+    _, ax = plt.subplots(figsize=(15, 10), dpi=400)
 
     plt.rcParams.update(
         {

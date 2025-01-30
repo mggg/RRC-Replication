@@ -114,7 +114,7 @@ if __name__ == "__main__":
     # ======================
     # + START MAKING PLOTS +
     # ======================
-    fig, ax = plt.subplots(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(15, 10), dpi=400)
 
     arrs = [rev_array1, rev_array2, rev_array3, forest_array]
     weights = [rev_df1_weights, rev_df2_weights, rev_df3_weights, forest_df_weights]
@@ -123,6 +123,7 @@ if __name__ == "__main__":
 
     handles = []
     from tqdm import tqdm
+
     for j in range(len(arrs)):
         arr = arrs[j]
         for i in tqdm(range(arr.shape[1])):
@@ -156,7 +157,7 @@ if __name__ == "__main__":
                 # Each call to bxp returns lists inside the dictionary
                 # For a single boxplot, there's one box element in res["boxes"]
                 handles.append(res["boxes"][0])
-                
+
         print(f"Done iteration {j+1}/{len(arrs)}")
 
     ax.set_xticks([2 * i + 0.5 for i in range(1, arrs[0].shape[1] + 1)])
@@ -173,4 +174,6 @@ if __name__ == "__main__":
         loc="upper left",
     )
 
-    plt.savefig(out_path.joinpath("dem_share_boxplots_VA.png"), dpi=300, bbox_inches="tight")
+    plt.savefig(
+        out_path.joinpath("dem_share_boxplots_VA.png"), dpi=300, bbox_inches="tight"
+    )
