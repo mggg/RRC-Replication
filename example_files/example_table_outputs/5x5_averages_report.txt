@@ -1,0 +1,72 @@
+====================================================================================================
+                                               FOREST                                               
+====================================================================================================
+	Forest_5x5_example_seed_496189_gamma_0_alpha_1_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	Forest_5x5_example_seed_20250123_gamma_0_alpha_1_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	Forest_5x5_example_seed_42_gamma_0_alpha_1_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share Forest: 5.0
+
+====================================================================================================
+                                               RECOMA                                               
+====================================================================================================
+	ReComA_5x5_example_seed_496189_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComA_5x5_example_seed_42_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComA_5x5_example_seed_20250123_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share ReComA: 5.0
+
+====================================================================================================
+                                               RECOMB                                               
+====================================================================================================
+	ReComB_5x5_example_seed_496189_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComB_5x5_example_seed_20250123_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComB_5x5_example_seed_42_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share ReComB: 5.0
+
+====================================================================================================
+                                               RECOMC                                               
+====================================================================================================
+	ReComC_5x5_example_seed_20250123_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComC_5x5_example_seed_42_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComC_5x5_example_seed_496189_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share ReComC: 5.0
+
+====================================================================================================
+                                               RECOMD                                               
+====================================================================================================
+	ReComD_5x5_example_seed_42_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComD_5x5_example_seed_20250123_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+	ReComD_5x5_example_seed_496189_steps_1000000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share ReComD: 5.0
+
+====================================================================================================
+                                              REVRECOM                                              
+====================================================================================================
+	RevReCom_5x5_example_seed_20250123_steps_100000000_tallies.parquet
+		Dem Share: 5.0
+	RevReCom_5x5_example_seed_496189_steps_100000000_tallies.parquet
+		Dem Share: 5.0
+	RevReCom_5x5_example_seed_42_steps_100000000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share RevReCom: 5.0
+

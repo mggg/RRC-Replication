@@ -101,7 +101,7 @@ if __name__ == "__main__":
     # ======================
     # + START MAKING PLOTS +
     # ======================
-    fig, ax = plt.subplots(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(15, 10), dpi=400)
 
     arrs = [rev_array1, rev_array2, rev_array3, forest_array]
     weights = [rev_df1_weights, rev_df2_weights, rev_df3_weights, forest_df_weights]
@@ -150,7 +150,7 @@ if __name__ == "__main__":
     ax.legend(
         handles=handles,
         labels=[
-            "RRC Seed 42 (100M proposed)", 
+            "RRC Seed 42 (100M proposed)",
             "RRC Seed 496189 (100M proposed)",
             "RRC Seed 20250123 (100M proposed)",
             "Forest Seed 42 (1M proposed)",
