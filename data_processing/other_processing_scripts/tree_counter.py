@@ -95,14 +95,16 @@ def main(file_name, grid_size, n_parts):
     cuts_df = pd.DataFrame({"cuts": cut_counts, "tree_count": spanning_counts})
     prob_df = cuts_df.groupby("cuts")["tree_count"].sum().reset_index()
     prob_df["n_plans"] = list(cuts_df["cuts"].value_counts().sort_index())
-    prob_df["probabiliy"] = 100 * prob_df["tree_count"] / prob_df["tree_count"].sum()
+    prob_df["probability"] = 100 * prob_df["tree_count"] / prob_df["tree_count"].sum()
     print(prob_df.to_string(index=False))
 
     script_dir = Path(__file__).resolve().parent
     top_dir = script_dir.parents[1]
 
     prob_df.to_csv(
-        top_dir.joinpath(f"other_data_files/data_files/true_counts_{grid_size[0]}x{grid_size[1]}_{n_parts}.csv"),
+        top_dir.joinpath(
+            f"other_data_files/data_files/true_counts_{grid_size[0]}x{grid_size[1]}_{n_parts}.csv"
+        ),
         index=False,
     )
 
