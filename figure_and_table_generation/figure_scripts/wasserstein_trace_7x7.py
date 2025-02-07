@@ -126,7 +126,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[0],
-        label="Seed 1 vs Seed 2",
+        label="RRC Seed 1 (5M Accepted) vs RRC Seed 2 (5M Accepted)",
     )
     sns.lineplot(
         x=was_rev1_ticks,
@@ -134,7 +134,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[2],
-        label="Seed 1 vs Truth",
+        label="RRC Seed 1 (5M Accepted) vs Truth",
     )
     sns.lineplot(
         x=was_rev2_ticks,
@@ -142,7 +142,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[8],
-        label="Seed 2 vs Truth",
+        label="RRC Seed 2 (5M Accepted) vs Truth",
     )
     sns.lineplot(
         x=was_forest_ticks,
@@ -150,7 +150,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[1],
-        label="Forest vs Truth",
+        label="Forest       (1.5M Accepted) vs Truth",
     )
 
     plot_tick_step = 500_000
@@ -339,11 +339,11 @@ def make_recom_comparison(
 
 
 if __name__ == "__main__":
-    truth_csv = "../../data_processing/true_counts_7x7_7.csv"
+    truth_csv = "../../other_data_files/processed_data_files/true_counts_7x7_7.csv"
 
-    reversible_sample_1 = "../../hpc_files/hpc_processed_data/7x7/7x7_Rev_steps_10000000000_rng_seed_278986_plan_district_20241024_115741_cut_edges.parquet"
+    reversible_sample_1 = "../../hpc_files/hpc_processed_data/7x7/7x7_RevReCom_steps_10000000000_rng_seed_278986_plan_district_20241024_115741_cut_edges.parquet"
 
-    reversible_sample_2 = "../../hpc_files/hpc_processed_data/7x7/7x7_Rev_steps_10000000000_rng_seed_278986_plan_rand_dist_20241024_115741_cut_edges.parquet"
+    reversible_sample_2 = "../../hpc_files/hpc_processed_data/7x7/7x7_RevReCom_steps_10000000000_rng_seed_278986_plan_rand_dist_20241024_115741_cut_edges.parquet"
 
     forest_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_7_20240830_142334_cut_edges.parquet"
 
@@ -358,10 +358,10 @@ if __name__ == "__main__":
         output_folder="../figures",
     )
 
-    recomA_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_A_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
-    recomB_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_B_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
-    recomC_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_C_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
-    recomD_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_D_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomA_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComA_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomB_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComB_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomC_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComC_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomD_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComD_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
 
     make_recom_comparison(
         recomA_sample=recomA_sample,

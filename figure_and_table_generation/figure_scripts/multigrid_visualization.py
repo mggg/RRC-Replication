@@ -53,7 +53,12 @@ def make_square_multigrid_heatmap(
             max_val = max(max_val, max(sq_data))
             min_val = min(min_val, min(sq_data))
 
-    for i, file in enumerate(file_list):
+    for i, f_name in enumerate(file_to_title_dict.keys()):
+        file = None
+        for f in file_list:
+            if f_name in f:
+                file = f
+                break
         with open(file, "r") as f:
             sq_data = f.readline()
             sq_data = ast.literal_eval(sq_data)
@@ -121,7 +126,7 @@ def make_square_multigrid_heatmap(
         label.set_fontproperties(font_properties)
 
     plt.savefig(
-        "../figures/square_multigrid_heatbar_horizontal.png", bbox_inches="tight"
+        outpath.joinpath("square_multigrid_heatbar_horizontal.png"), bbox_inches="tight"
     )
 
     norm = colors.Normalize(vmin=min_val, vmax=max_val)
@@ -139,7 +144,9 @@ def make_square_multigrid_heatmap(
     for label in cbar.ax.get_yticklabels():
         label.set_fontproperties(font_properties)
 
-    plt.savefig("../figures/square_multigrid_heatbar_vertical.png", bbox_inches="tight")
+    plt.savefig(
+        outpath.joinpath("square_multigrid_heatbar_vertical.png"), bbox_inches="tight"
+    )
 
 
 def make_square_multigrid(JSON_file, output_folder):
@@ -212,7 +219,12 @@ def make_linear_multigrid_heatmap(
             max_val = max(max_val, max(lin_data))
             min_val = min(min_val, min(lin_data))
 
-    for i, file in enumerate(file_list):
+    for i, f_name in enumerate(file_to_title_dict.keys()):
+        file = None
+        for f in file_list:
+            if f_name in f:
+                file = f
+                break
         with open(file, "r") as f:
             lin_data = f.readline()
             lin_data = ast.literal_eval(lin_data)
@@ -344,23 +356,17 @@ if __name__ == "__main__":
             "../../other_data_files/processed_data_files/square_multigrid/square*changed_assignments.txt",
         )
     )
-    new_file_list = [None] * 6
 
     square_gdf = gpd.read_file("../../shapefiles/square_multigrid/square_multigrid.shp")
-
-    new_order = [0, 1, 5, 2, 3, 4]
-    for i in range(6):
-        new_file_list[i] = file_list[new_order[i]]
-    file_list = new_file_list
 
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
     flie_to_title = {
         "square_A_1M_accept_50000_changed_assignments": "ReCom-A",
         "square_B_1M_accept_50000_changed_assignments": "ReCom-B",
+        "square_rev_100M_accept_50000_changed_assignments": "RevReCom",
         "square_C_1M_accept_50000_changed_assignments": "ReCom-C",
         "square_D_1M_accept_50000_changed_assignments": "ReCom-D",
-        "square_rev_100M_accept_50000_changed_assignments": "RevReCom",
         "square_forest_1M_jl_accept_50000_changed_assignments": "Forest ReCom",
     }
 
@@ -385,23 +391,17 @@ if __name__ == "__main__":
             "../../other_data_files/processed_data_files/linear_multigrid/linear*changed_assignments.txt",
         )
     )
-    new_file_list = [None] * 6
 
     linear_gdf = gpd.read_file("../../shapefiles/linear_multigrid/linear_multigrid.shp")
-
-    new_order = [0, 1, 2, 3, 5, 4]
-    for i in range(6):
-        new_file_list[i] = file_list[new_order[i]]
-    file_list = new_file_list
 
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
     flie_to_title = {
         "linear_A_1M_accept_50000_changed_assignments": "ReCom-A",
         "linear_B_1M_accept_50000_changed_assignments": "ReCom-B",
+        "linear_rev_200M_accept_50000_changed_assignments": "RevReCom",
         "linear_C_1M_accept_50000_changed_assignments": "ReCom-C",
         "linear_D_1M_accept_50000_changed_assignments": "ReCom-D",
-        "linear_rev_200M_accept_50000_changed_assignments": "RevReCom",
         "linear_forest_1M_jl_accept_50000_changed_assignments": "Forest ReCom",
     }
 

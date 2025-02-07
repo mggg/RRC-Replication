@@ -66,6 +66,9 @@ if __name__ == "__main__":
     n_accepted = 3_300_000
     n_items = 800
 
+    # n_accepted = 300_000
+    # n_items = 5
+
     # ======================
     # + REV RECOM SAMPLE 1 +
     # ======================
@@ -169,7 +172,7 @@ if __name__ == "__main__":
         ax=ax,
         linewidth=3,
         color=colors[1],
-        label="Rev ReCom (5B Proposed) CD 16 vs Full Forest (10M Proposed)",
+        label="Rev ReCom DYNAMIC (5B Proposed)     CD 16 vs Full Forest STATIC (10M Proposed)",
     )
     sns.lineplot(
         x=was_full_2f_ticks,
@@ -177,7 +180,7 @@ if __name__ == "__main__":
         ax=ax,
         linewidth=3,
         color=colors[0],
-        label="Rev ReCom (5B Proposed) CD 12 vs Full Forest (10M Proposed)",
+        label="Rev ReCom DYNAMIC (5B Proposed)     CD 12 vs Full Forest STATIC (10M Proposed)",
     )
     sns.lineplot(
         x=was_full_3f_ticks,
@@ -185,10 +188,12 @@ if __name__ == "__main__":
         ax=ax,
         linewidth=3,
         color=colors[3],
-        label="Rev ReCom (5B Proposed) Rand Plan vs Full Forest (10M Proposed)",
+        label="Rev ReCom DYNAMIC (5B Proposed) Rand Plan vs Full Forest STATIC (10M Proposed)",
     )
 
-    plt.legend(prop={"size": 18})
+    ax.legend(prop={"size": 20})
+    ax.tick_params(axis="both", labelsize=14)
+
     plt.savefig(
         out_path.joinpath(
             "Wasserstein_distances_VA_comparison_Dem_Shares_v_Full_Forest.png"
