@@ -160,7 +160,7 @@ if __name__ == "__main__":
 
         print(f"Done iteration {j+1}/{len(arrs)}")
 
-    ax.set_xticks([2 * i + 0.5 for i in range(1, arrs[0].shape[1] + 1)])
+    ax.set_xticks([2 * i + 0.75 for i in range(1, arrs[0].shape[1] + 1)])
     ax.set_xticklabels([i for i in range(1, arrs[0].shape[1] + 1)])
 
     ax.legend(
@@ -172,6 +172,7 @@ if __name__ == "__main__":
             "Forest (10M proposed)",
         ],
         loc="upper left",
+        prop={"size": 16},
     )
 
     plt.savefig(

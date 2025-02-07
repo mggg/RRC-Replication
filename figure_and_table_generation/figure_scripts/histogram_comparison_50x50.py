@@ -71,9 +71,9 @@ def make_plot_dists(rrc_forest, lower, upper, n_dists, glob_expr):
 
     ax.set_xlim(lower - 20, upper + 20)
     ax.set_xticks(list(range(lower, upper, 50)))
-    ax.set_xticklabels([str(i) for i in range(lower, upper, 50)])
+    ax.set_xticklabels([str(i) for i in range(lower, upper, 50)], fontsize=16)
     ax.set_yticks([])
-    ax.legend(loc="right", bbox_to_anchor=(1.12, 0.5))
+    ax.legend(loc="right", bbox_to_anchor=(1.18, 0.5), prop={"size": 16})
     plt.savefig(
         out_path.joinpath(f"50x50_{n_dists}_dist_forest_rrc_comparison.png"),
         bbox_inches="tight",
@@ -110,9 +110,9 @@ def make_plot_dists(rrc_forest, lower, upper, n_dists, glob_expr):
 
     ax.set_xlim(lower - 20, upper + 20)
     ax.set_xticks(list(range(lower, upper, 50)))
-    ax.set_xticklabels([str(i) for i in range(lower, upper, 50)])
+    ax.set_xticklabels([str(i) for i in range(lower, upper, 50)], fontsize=16)
     ax.set_yticks([])
-    ax.legend(loc="right", bbox_to_anchor=(1.12, 0.5))
+    ax.legend(loc="right", bbox_to_anchor=(1.19, 0.5), prop={"size": 16})
     plt.savefig(
         out_path.joinpath(f"50x50_{n_dists}_dist_ReCom_comparison.png"),
         bbox_inches="tight",
