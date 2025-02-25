@@ -1,5 +1,5 @@
 """
-Last Updated: 16-01-2025
+Last Updated: 11-02-2025
 Author: Peter Rock <peter@mggg.org>
 
 This is a small script that is used to account for the average number of Dem
@@ -25,20 +25,28 @@ if __name__ == "__main__":
         file = all_files[i]
         sample_type = sample_type_lst[i]
         df = pd.read_parquet(file)
-        df_dem_pres = df[df["sum_columns"] == "T16PRESD"].reset_index()[
-            [f"district_{i}" for i in range(1, 19)]
+        df_dem_pres = df[df["sum_columns"] == "PRES16D"].reset_index()[
+            [f"district_{i}" for i in range(1, 19)] + ["n_reps"]
         ]
-        df_rep_pres = df[df["sum_columns"] == "T16PRESR"].reset_index()[
-            [f"district_{i}" for i in range(1, 19)]
+        df_rep_pres = df[df["sum_columns"] == "PRES16R"].reset_index()[
+            [f"district_{i}" for i in range(1, 19)] + ["n_reps"]
         ]
-        df_dem_sen = df[df["sum_columns"] == "T16SEND"].reset_index()[
-            [f"district_{i}" for i in range(1, 19)]
+        df_dem_sen = df[df["sum_columns"] == "SEND16D"].reset_index()[
+            [f"district_{i}" for i in range(1, 19)] + ["n_reps"]
         ]
-        df_rep_sen = df[df["sum_columns"] == "T16SENR"].reset_index()[
-            [f"district_{i}" for i in range(1, 19)]
+        df_rep_sen = df[df["sum_columns"] == "SEND16R"].reset_index()[
+            [f"district_{i}" for i in range(1, 19)] + ["n_reps"]
         ]
-        pres_mean = (df_dem_pres > df_rep_pres).sum(axis=1).mean()
-        sen_mean = (df_dem_sen > df_rep_sen).sum(axis=1).mean()
+
+        assert df_dem_pres["n_reps"].equals(df_rep_pres["n_reps"])
+        assert df_dem_sen["n_reps"].equals(df_rep_sen["n_reps"])
+
+        pres_mean = (
+            (df_dem_pres > df_rep_pres).sum(axis=1) * df_dem_pres["n_reps"]
+        ).sum() / df_dem_pres["n_reps"].sum()
+        sen_mean = (
+            (df_dem_sen > df_rep_sen).sum(axis=1) * df_dem_sen["n_reps"]
+        ).sum() / df_dem_sen["n_reps"].sum()
         outputs_dict[sample_type].append((Path(file).name, pres_mean, sen_mean))
 
     with open(out_folder.joinpath("pa_averages_report.txt"), "w") as f:
@@ -48,14 +56,13 @@ if __name__ == "__main__":
             print("=" * 100, file=f)
             pres_tot = 0
             sen_tot = 0
+            list_tup = outputs_dict[key]
             for name, pres, sen in list_tup:
                 print(f"\t{name}\n\t\tPres: {pres}\n\t\tSen: {sen}", file=f)
                 pres_tot += pres
                 sen_tot += sen
 
-            pres_avg = 0
-            sen_avg = 0
-            if len(list_tup) > 0:
+            if list_tup:
                 pres_avg = pres_tot / len(list_tup)
                 sen_avg = sen_tot / len(list_tup)
                 print("", file=f)
