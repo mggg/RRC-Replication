@@ -7,17 +7,31 @@ This is a histogram comparing the cut-edge distributions of the Reversible ReCom
 methods for a 50x50 grid split into 10 districts. The Reversible ensemble contains 10 billion
 proposed assignments, while the Forest ensemble contains 10 million proposed assignments.
 
+### 50x50_10_dist_forest_rrc_smc_comparison.png
+
+This is a histogram comparing the cut-edge distributions of the Reversible ReCom, Forest ReCom
+and Sequential Monte Carlo (SMC) methods for a 50x50 grid split into 10 districts. The Reversible
+ensemble contains 10 billion proposed assignments, the Forest ensemble contains 10 million proposed
+assignments, and the SMC ensemble contains 100 thousand proposed assignments.
+
 ### 50x50_10_dist_ReCom_comparison.png
 
 This is a histogram comparing the cut-edge distributions of the various ReCom methods
 (A, B, C, D) for a 50x50 grid split into 10 districts. All of the ReCom methods are run with
 1 billion proposed assignments.
 
-### 50x50_25_dist_reversible_forest_rrc_comparison.png
+### 50x50_25_dist_forest_rrc_comparison.png
 
 This is a histogram comparing the cut-edge distributions of the Reversible ReCom and Forest ReCom
 methods for a 50x50 grid split into 25 districts. The Reversible ensemble contains 10 billion
 proposed assignments, while the Forest ensemble contains 10 million proposed assignments.
+
+### 50x50_25_dist_forest_rrc_smc_comparison.png
+
+This is a histogram comparing the cut-edge distributions of the Reversible ReCom, Forest ReCom
+and Sequential Monte Carlo (SMC) methods for a 50x50 grid split into 25 districts. The Reversible
+ensemble contains 10 billion proposed assignments, the Forest ensemble contains 10 million proposed
+assignments, and the SMC ensemble contains 100 thousand proposed assignments.
 
 ### 50x50_25_dist_ReCom_comparison.png
 
@@ -25,11 +39,18 @@ This is a histogram comparing the cut-edge distributions of the various ReCom me
 (A, B, C, D) for a 50x50 grid split into 25 districts. All of the ReCom methods are run with
 1 billion proposed assignments.
 
-### 50x50_50_dist_reversible_forest_rrc_comparison.png
+### 50x50_50_dist_forest_rrc_comparison.png
 
 This is a histogram comparing the cut-edge distributions of the Reversible ReCom and Forest ReCom
 methods for a 50x50 grid split into 50 districts. The Reversible ensemble contains 10 billion
 proposed assignments, while the Forest ensemble contains 10 million proposed assignments.
+
+### 50x50_50_dist_forest_rrc_smc_comparison.png
+
+This is a histogram comparing the cut-edge distributions of the Reversible ReCom, Forest ReCom
+and Sequential Monte Carlo (SMC) methods for a 50x50 grid split into 50 districts. The Reversible
+ensemble contains 10 billion proposed assignments, the Forest ensemble contains 10 million proposed
+assignments, and the SMC ensemble contains 100 thousand proposed assignments.
 
 ### 50x50_50_dist_ReCom_comparison.png
 

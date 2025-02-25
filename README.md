@@ -57,7 +57,7 @@ source setup_all.sh
 ```
 
 sourcing is necessary to make sure that the Julia project is set up correctly.
-You will need to have both Julia and Cargo installed in order for this to run without 
+You will need to have Julia, Cargo, and RStudio installed in order for this to run without 
 errors. (Note: This script requires the use of a Unix based operating system, such as 
 MacOS or Linux. Windows users may invoke this by setting up the subsystem for Linux)
 
@@ -66,16 +66,28 @@ To install Cargo, visit the
 [Rustup Download Page](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 and follow the instructions for your operating system. Likewise, to install Julia,
 visit the [Julia Installation Page](https://julialang.org/downloads/).
-All of the work for this project was done using Julia version 1.9.3, but it should
-still work with Julia versions 1.9.\*-1.x.\*.
+And installing R/RStudio can be done through the 
+[RStudio Installation Page](https://posit.co/download/rstudio-desktop/)
+All of the work for this project was done using Julia version 1.9.3, and but it should
+still work with Julia versions 1.9.\*-1.x.\*, and all R work was done using version
+4.4.0, but everything will be fine on versions 4.4.\*.
 
-(Note: It may be easier for MacOS users to install using the Homebrew package manager
+(Note: It may be easier for MacOS users to install Julia using the Homebrew package manager
 than installing from the Julia website.)
+
+> :warning: There appears to be a memory leak bug that sometimes appears when running the `redist`
+> package. This memory leak appears to be an issue with the R interpreter not freeing memory
+> appropriately when the R base language and the relevant RCpp and Rarmadillo libraries
+> are compiled with an earler version of gcc. To avoid this bug, please make sure to have
+> R version >= 4.4.2 and a gcc released after 15 May 2024. Relevant gdal and fortran compilation
+> libraries should also be up-to-date.
 
 ## More Detailed Setup instructions in case the script fails
 
-To run any of the script files contained in here, you will need to download the
-the correct version of the Julia code from github using the included setup file:
+### Julia
+
+To run any of the Julia script files contained in this repository, you will need to
+download the the correct version of the Julia code from github using the included setup file:
 
 ```console
 julia aux_script_files/setup.jl
@@ -98,21 +110,101 @@ as this README file. This can be done by running the following command:
 export JULIA_PROJECT=$(pwd)
 ```
 
+### R and RStudio
+
+To run the Sequential Monte Carlo (SMC) code for this repository, you will need to have the
+appropriate version of R (you don't _need_ RStudio, but it is nice to have) installed, as
+well as the following packages:
+ 
+- argparser
+- dplyr
+- ggplot2
+- remotes
+- sf
+
+To install these packages, you can simply invoke the R terminal (or open RStudio)
+and call
+
+```R
+> install.packages("argparser")
+> install.packages("dplyr")
+> install.packages("ggplot2")
+> install.packages("remotes")
+> install.packages("sf")
+> install.packages("argparser")
+> library("remotes")
+> remotes::install_github("mggg/redist-fork", ref = "0cdab508e166c398c3f06663220246194d7692e5")
+```
+
+After that, the `smc_cli.R` file should work as expected.
+
+
+### Common issues with R installation
+
+During the installation process, you might come accross an error saying that the packages 's2'
+and 'units' are not installed. If you then try to install 's2' using R's package 
+manager, you may then get an error like
+
+```console
+ERROR: configuration failed for package ‘s2’
+* removing ‘/usr/local/lib/R/site-library/s2’
+
+The downloaded source packages are in
+        ‘/tmp/RtmpNb5oyb/downloaded_packages’
+Error in library(pkg, character.only = TRUE) :
+  there is no package called ‘s2’
+In addition: Warning message:
+In install.packages(pkg, repos = "https://cloud.r-project.org") :
+  installation of package ‘s2’ had non-zero exit status
+Execution halted
+```
+
+This generally means that your system is missing some dependencies. In an Debian-based distro
+(e.g. Ubuntu), you may rectify this via 
+
+```console
+apt update && apt install -y \
+  libgdal-dev \
+  libgeos-dev \
+  libproj-dev \
+  libudunits2-dev \
+  libssl-dev \
+  libcurl4-openssl-dev \
+  libprotobuf-dev \
+  protobuf-compiler \
+  libcairo2-dev
+```
+
+Which will install the packages needed for 's2' to work on your system.
+
+If you are on mac, then the corresponding brew packages would be:
+
+```console
+brew update && brew install \
+  gdal \
+  geos \
+  proj \
+  udunits \
+  openssl \
+  cairo
+```
+
 ### Other dependencies
 
 In order to convert the "atlas" format that is output by the MSMS code to an assignment-vector 
-format, it is necessary to install the `msms_parser` and `ben` cli tools. This can be downloaded using the
-Cargo package manager. 
+format, it is necessary to install the `msms_parser`, `smc_parser` and `ben` cli tools. This
+can be downloaded using the Cargo package manager. 
 The `ben` cli tool may then be installed using the command
 
 ```console
 cargo install binary-ensemble
 ```
 
-and `msms_parser` can be installed using
+and `msms_parser` and `smc_parser` can be installed using
 
 ```console
 cargo install --git https://github.com/peterrrock2/msms_parser.git
+cargo install --git https://github.com/peterrrock2/smc_parser.git
 ```
 
 In addition to these CLI tools, you will need the `ben-tally` cli tool that allows for tallying across an output BEN file.

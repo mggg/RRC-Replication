@@ -23,3 +23,12 @@ cargo install binary-ensemble --version 0.2.0
 cargo install --git https://github.com/peterrrock2/msms_parser.git --rev 3c37fc5a57b1b9480b95d3d01cad9c37e6564f59
 cargo install --git https://github.com/mggg/frcw.rs --rev b28260bc1eba425731b7ae6a194ab4a2cd4532b6
 cargo install --path ./data_processing/Ben_Tally
+
+# Check if Rscript is installed
+if ! command -v Rscript &> /dev/null; then
+    echo "Error: Rscript is not installed. Please install R before running this script."
+    exit 1
+fi
+
+# Install redist from MGGG
+Rscript aux_script_files/setup.R
