@@ -10,7 +10,7 @@ TOP_DIR=$(realpath "$SCRIPT_DIR/../..")
 stime="3-00:00:00"
 smem="128G"
 
-julia_cli_file="$TOP_DIR/cli_files/multi_cli.jl"
+julia_cli_file="${TOP_DIR}/cli_files/multi_cli.jl"
 
 
 alpha=1.0
@@ -20,8 +20,8 @@ pa_cores=32
 
 pa_random_seeds=(278986 224116 528170 444343 75723 183080 491349 397747 885844 416713)
 
-pa_json_file="$TOP_DIR/JSON_dualgraphs/PA_VTDs.json"
-pa_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/PA"
+pa_json_file="${TOP_DIR}/JSON_dualgraphs/PA_VTD_20.json"
+pa_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/PA"
 
 pa_region="GEOID10"
 pa_subregion="GEOID10"
@@ -35,8 +35,8 @@ pa_recom_steps=4000000
 
 for pa_rng_seed in "${pa_random_seeds[@]}"
 do
-    soutput="$TOP_DIR/hpc_files/hpc_logs/PA/Forest_%x_%j_${current_time}_seed_${pa_rng_seed}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/PA/Forest_%x_%j_${current_time}_seed_${pa_rng_seed}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/PA/Forest_%x_%j_${current_time}_seed_${pa_rng_seed}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/PA/Forest_%x_%j_${current_time}_seed_${pa_rng_seed}.log"
 
     pa_output_file="${pa_output_folder}/PA_Forest_steps_${pa_recom_steps}_rng_seed_${pa_rng_seed}_gamma_${pa_gamma}_alpha_${alpha}_ndists_${pa_num_dists}_${current_time}.jsonl.ben"
 
@@ -74,8 +74,8 @@ va_cores=8
 
 va_random_seeds=(278986)
 
-va_json_file="$TOP_DIR/JSON_dualgraphs/VA_precincts.json"
-va_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/VA"
+va_json_file="${TOP_DIR}/JSON_dualgraphs/VA_precincts.json"
+va_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/VA"
 
 va_region="loc_prec"
 va_subregion="loc_prec"
@@ -90,8 +90,8 @@ va_recom_steps=10000000
 
 for va_rng_seed in "${va_random_seeds[@]}"
 do
-    soutput="$TOP_DIR/hpc_files/hpc_logs/VA/Forest_%x_%j_${current_time}_seed_${va_rng_seed}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/VA/Forest_%x_%j_${current_time}_seed_${va_rng_seed}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/VA/Forest_%x_%j_${current_time}_seed_${va_rng_seed}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/VA/Forest_%x_%j_${current_time}_seed_${va_rng_seed}.log"
 
     va_output_file="${va_output_folder}/VA_Forest_steps_${va_recom_steps}_rng_seed_${va_rng_seed}_gamma_${va_gamma}_alpha_${alpha}_ndists_${va_num_dists}_${current_time}.jsonl"
 
@@ -132,8 +132,8 @@ seven_cores=2
 
 seven_random_seeds=(278986)
 
-seven_json_file="$TOP_DIR/JSON_dualgraphs/7x7.json"
-seven_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/7x7"
+seven_json_file="${TOP_DIR}/JSON_dualgraphs/7x7.json"
+seven_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/7x7"
 
 seven_region="precinct"
 seven_subregion="precinct"
@@ -147,8 +147,8 @@ seven_recom_steps=10000000
 
 for seven_rng_seed in "${seven_random_seeds[@]}"
 do
-    soutput="$TOP_DIR/hpc_files/hpc_logs/7x7/Forest_%x_%j_${current_time}_seed_${seven_rng_seed}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/7x7/Forest_%x_%j_${current_time}_seed_${seven_rng_seed}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/7x7/Forest_%x_%j_${current_time}_seed_${seven_rng_seed}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/7x7/Forest_%x_%j_${current_time}_seed_${seven_rng_seed}.log"
 
     seven_output_file="${seven_output_folder}/7x7_Forest_steps_${seven_recom_steps}_rng_seed_${seven_rng_seed}_gamma_${seven_gamma}_alpha_${alpha}_ndists_${seven_num_dists}_${current_time}.jsonl.ben"
 
@@ -186,8 +186,8 @@ fifty_cores=4
 
 fifty_rng_seed=278986
 
-fifty_json_file="$TOP_DIR/JSON_dualgraphs/50x50_with_10_25_50.json"
-fifty_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/50x50"
+fifty_json_file="${TOP_DIR}/JSON_dualgraphs/50x50_with_10_25_50.json"
+fifty_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/50x50"
 
 fifty_region="precinct"
 fifty_subregion="precinct"
@@ -201,8 +201,8 @@ fifty_recom_steps=10000000
 
 for n_dists in "${fifty_num_dists[@]}"
 do
-    soutput="$TOP_DIR/hpc_files/hpc_logs/50x50/Forest_%x_%j_${current_time}_seed_${fifty_rng_seed}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/50x50/Forest_%x_%j_${current_time}_seed_${fifty_rng_seed}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/50x50/Forest_%x_%j_${current_time}_seed_${fifty_rng_seed}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/50x50/Forest_%x_%j_${current_time}_seed_${fifty_rng_seed}.log"
     
     fifty_output_file="${fifty_output_folder}/50x50_Forest_steps_${fifty_recom_steps}_rng_seed_${fifty_rng_seed}_gamma_${fifty_gamma}_alpha_${alpha}_ndists_${n_dists}_${current_time}.jsonl"
 

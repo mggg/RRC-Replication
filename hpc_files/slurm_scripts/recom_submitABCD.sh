@@ -13,13 +13,13 @@ TOP_DIR=$(realpath "$SCRIPT_DIR/../..")
 stime="2-00:00:00"
 smem="8G"
 
-pa_json_file="$TOP_DIR/JSON_dualgraphs/PA_VTDs.json"
-pa_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/PA"
+pa_json_file="${TOP_DIR}/JSON_dualgraphs/PA_VTD_20.json"
+pa_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/PA"
 
 for i in {0..3}
 do 
-    soutput="$TOP_DIR/hpc_files/hpc_logs/PA/${recom_names[i]}_%x_%j_${current_time}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/PA/${recom_names[i]}_%x_%j_${current_time}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/PA/${recom_names[i]}_%x_%j_${current_time}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/PA/${recom_names[i]}_%x_%j_${current_time}.log"
 
     pa_job_name="${recom_names[i]}_PA"
     pa_cores=2
@@ -62,13 +62,13 @@ do
     done
 done 
 
-seven_json_file="$TOP_DIR/JSON_dualgraphs/7x7.json"
-seven_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/7x7"
+seven_json_file="${TOP_DIR}/JSON_dualgraphs/7x7.json"
+seven_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/7x7"
 
 for i in {0..3}
 do 
-    soutput="$TOP_DIR/hpc_files/hpc_logs/7x7/${recom_names[i]}_%x_%j_${current_time}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/7x7/${recom_names[i]}_%x_%j_${current_time}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/7x7/${recom_names[i]}_%x_%j_${current_time}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/7x7/${recom_names[i]}_%x_%j_${current_time}.log"
 
     seven_job_name="${recom_names[i]}_7x7"
     seven_cores=2
@@ -121,15 +121,15 @@ fifty_rng_seed=278986
 fifty_cores=2
 fifty_batch_size=2
 
-fifty_json_file="$TOP_DIR/JSON_dualgraphs/50x50_with_10_25_50.json"
-fifty_output_folder="$TOP_DIR/hpc_files/hpc_raw_data/50x50"
+fifty_json_file="${TOP_DIR}/JSON_dualgraphs/50x50_with_10_25_50.json"
+fifty_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/50x50"
 
 for i in {0..3}
 do
 for j in {0..2}
 do
-    soutput="$TOP_DIR/hpc_files/hpc_logs/50x50/${recom_names[i]}_%x_%j_${current_time}.out"
-    serror="$TOP_DIR/hpc_files/hpc_logs/50x50/${recom_names[i]}_%x_%j_${current_time}.log"
+    soutput="${TOP_DIR}/hpc_files/hpc_logs/50x50/${recom_names[i]}_%x_%j_${current_time}.out"
+    serror="${TOP_DIR}/hpc_files/hpc_logs/50x50/${recom_names[i]}_%x_%j_${current_time}.log"
 
     fifty_job_name="${recom_names[i]}_50x50_${fifty_n_dists[j]}"
 
