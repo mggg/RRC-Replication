@@ -2,3 +2,4 @@
 # easier to do from a straight clone of the project
 *
 !.gitignore
+!count_cuts_50x50.sh

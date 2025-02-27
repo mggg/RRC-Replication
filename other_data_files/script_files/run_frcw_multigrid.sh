@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Trap Ctrl-C and kill all background jobs
+trap 'echo .; echo "Keyboard interrupt detected. Exiting..."; kill 0; exit 1;' SIGINT
+
 # Get the directory of the current script
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 TOP_DIR=$(realpath "$SCRIPT_DIR/../..")
@@ -62,5 +65,14 @@ do
         --writer ben -o "${TOP_DIR}/other_data_files/raw_data_files/linear_multigrid/linear_${var_names[$i]}_1M.jsonl.ben" &
 done 
 
-wait
-echo "Done!"
+spinner_chars='-\|/'
+while [ $(jobs | grep -v "Done" | grep -c "[f]rcw --graph") -gt 0 ]; do
+    for ((i=0; i<${#spinner_chars}; i++)); do
+        
+        if [ $(jobs | grep -v "Done" | grep -c "[f]rcw --graph") -eq 0 ]; then
+            break
+        fi
+        printf "\rRunning FRCW... %s" "${spinner_chars:$i:1}"
+        sleep 0.1
+    done
+done
