@@ -21,6 +21,7 @@ fi
 
 cargo install binary-ensemble --version 0.2.0
 cargo install --git https://github.com/peterrrock2/msms_parser.git --rev 3c37fc5a57b1b9480b95d3d01cad9c37e6564f59
+cargo install --git https://github.com/peterrock2/smc_parser.git --rev 03edd583e40e6198045d62e9eeb8a3e543bb1551
 cargo install --git https://github.com/mggg/frcw.rs --rev b28260bc1eba425731b7ae6a194ab4a2cd4532b6
 cargo install --path ./data_processing/Ben_Tally
 

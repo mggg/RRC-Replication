@@ -122,8 +122,6 @@ p <- add_argument(p,
 )
 
 argv <- parse_args(p)
-options(redist.adjust_labels = FALSE)
-
 vtds <- st_read(dsn = paste0(argv$shapefile))
 
 population <- sum(vtds[[argv$pop_col]])
@@ -176,10 +174,5 @@ if (argv$print) {
     file_name <- argv$output_file
     dir.create(dirname(file_name), recursive = TRUE, showWarnings = FALSE)
     write.csv(plans, file_name)
-    if (argv$resample) {
-        write.csv(t(as.matrix(attr(plans, "old_plans"))), paste0(tools::file_path_sans_ext(file_name), "_assignments_before_resample.csv"))
-        write.csv(t(as.matrix(attr(plans, "resample_indices"))), paste0(tools::file_path_sans_ext(file_name), "_parent_indices_for_reshuffle.csv"))
-        write.csv(t(as.matrix(attr(plans, "resample_wgts"))), paste0(tools::file_path_sans_ext(file_name), "_parent_weights_for_reshuffle.csv"))
-    }
     write.csv(t(as.matrix(plans)), paste0(tools::file_path_sans_ext(file_name), "_assignments.csv"))
 }

@@ -49,19 +49,18 @@ This repository is not complete at this time.
 
 ## Simple Setup
 
+Note: These instructions are intended for Mac and Linux users. Windows users
+may follow along by using the 
+[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) 
+and
+[Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?ocid=webpdpshare)
+which allow for the use of Linux commands within a Windows environment. Windows users
+will also need to install the appropriate subsystem, for which we recommend 
+[Ubuntu 22.04.5 LTS](https://apps.microsoft.com/detail/9pn20msr04dw?ocid=webpdpshare)
+due to the ease-of-use and quantity of support documentation for Ubuntu users.
+
 To set up this project to run some of the analysis scripts contained within, you 
-can simply invoke
-
-```console
-source setup_all.sh
-```
-
-sourcing is necessary to make sure that the Julia project is set up correctly.
-You will need to have Julia, Cargo, and RStudio installed in order for this to run without 
-errors. (Note: This script requires the use of a Unix based operating system, such as 
-MacOS or Linux. Windows users may invoke this by setting up the subsystem for Linux)
-
-
+must make sure that you have Cargo, Julia, and R (or RStudio) installed.
 To install Cargo, visit the 
 [Rustup Download Page](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 and follow the instructions for your operating system. Likewise, to install Julia,
@@ -78,9 +77,19 @@ than installing from the Julia website.)
 > :warning: There appears to be a memory leak bug that sometimes appears when running the `redist`
 > package. This memory leak appears to be an issue with the R interpreter not freeing memory
 > appropriately when the R base language and the relevant RCpp and Rarmadillo libraries
-> are compiled with an earler version of gcc. To avoid this bug, please make sure to have
-> R version >= 4.4.2 and a gcc released after 15 May 2024. Relevant gdal and fortran compilation
-> libraries should also be up-to-date.
+> are compiled with an earler version of gcc/gfortran. To avoid this bug, please make sure to have
+> R version >= 4.4.2 and a verson ofgcc released after 15 May 2024. Relevant gdal and fortran
+> compilation libraries should also be up-to-date.
+
+
+After making sure the appropriate programming languages are installed on your 
+machine, you can simply invoke
+
+```console
+source setup_all.sh
+```
+
+sourcing is necessary to make sure that the Julia project is set up correctly.
 
 ## More Detailed Setup instructions in case the script fails
 
@@ -116,11 +125,11 @@ To run the Sequential Monte Carlo (SMC) code for this repository, you will need 
 appropriate version of R (you don't _need_ RStudio, but it is nice to have) installed, as
 well as the following packages:
  
-- argparser
-- dplyr
-- ggplot2
-- remotes
-- sf
+- `argparser`
+- `dplyr`
+- `ggplot2`
+- `remotes`
+- `sf`
 
 To install these packages, you can simply invoke the R terminal (or open RStudio)
 and call
@@ -183,11 +192,49 @@ If you are on mac, then the corresponding brew packages would be:
 brew update && brew install \
   gdal \
   geos \
+  gfortran \
   proj \
   udunits \
   openssl \
   cairo
 ```
+
+In some versions of R, especially on newer Mac installations, there can be a slight issue 
+during the installation of the `redist` package. Specifically, you might see something like
+
+```console
+ld: warning: search path '/opt/gfortran/lib/gcc/aarch64-apple-darwin20.0/12.2.0' not found
+ld: warning: search path '/opt/gfortran/lib' not found
+ld: library 'gfortran' not found
+clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [redist.so] Error 1
+ERROR: compilation failed for package 'redist'
+* removing '/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/redist'
+Warning message:
+In i.p(...) :
+  installation of package '/var/folders/r_/xjlnv23j48v1p28d0tq18wcc0000gn/T//RtmpxA09fJ/file130a75c9fcf76/redist_4.1.2.tar.gz' had non-zero exit status
+```
+
+In this message, the key line is
+
+```console
+ld: warning: search path '/opt/gfortran/lib/gcc/aarch64-apple-darwin20.0/12.2.0' not found
+```
+
+which indicates that R is trying to grab a gfortran library that was not installed with the
+brew package manager. The easiest way to try and fix this is to just adjust the compilation
+flags for R (i.e. edit the file `~/.R/Makevars/`). Most likely, you have never touched
+this file before, so the easiest way to fix this is to invoke the following from the console:
+
+```console
+mkdir -p ~/.R && echo "CC = clang
+CXX = clang++
+FC = /opt/homebrew/bin/gfortran
+F77 = /opt/homebrew/bin/gfortran
+FLIBS = -L/opt/homebrew/opt/gcc/lib/gcc/current -lgfortran -lquadmath -lm" > ~/.R/Makevars
+```
+
+
 
 ### Other dependencies
 
