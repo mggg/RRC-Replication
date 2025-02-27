@@ -70,3 +70,11 @@ Average Dem Share ReComD: 5.0
 
 Average Dem Share RevReCom: 5.0
 
+====================================================================================================
+                                                SMC                                                 
+====================================================================================================
+	SMC_5x5_example_seed__batch_size_10000_tallies.parquet
+		Dem Share: 5.0
+
+Average Dem Share SMC: 5.0
+

@@ -14,8 +14,11 @@ from tqdm import tqdm
 from pathlib import Path
 
 if __name__ == "__main__":
-    out_folder = Path("../../example_table_outputs")
-    all_files = glob("../../example_processed_data/*tallies.parquet")
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[2]
+
+    out_folder = Path(f"{top_dir}/example_files/example_table_outputs")
+    all_files = glob(f"{top_dir}/example_files/example_processed_data/*tallies.parquet")
     all_files = [Path(file).resolve() for file in all_files]
 
     sample_type_lst = [file.name.split("_")[0] for file in all_files]

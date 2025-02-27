@@ -6,7 +6,7 @@ TOP_DIR=$(realpath "$SCRIPT_DIR/../../..")
 
 smc_cli_file="$TOP_DIR/cli_files/smc_cli.R"
 
-example_shape_file="$TOP_DIR/example_files/5x5_example/5x5_example.shp"
+example_shapefile="$TOP_DIR/example_files/5x5_example/5x5_example.shp"
 
 region_name="precinct"
 subregion_name="precinct"
@@ -16,15 +16,16 @@ n_sims=10000
 
 smc_rng_seed=42
 
-final_output_file="$TOP_DIR/example_files/example_raw_data/SMC_5x5_example_seed_${rng_seeds[i]}_batch_size_${n_sims}.jsonl.ben"
+jsonl_output_file="$TOP_DIR/example_files/example_raw_data/SMC_5x5_example_seed_${rng_seeds[i]}_batch_size_${n_sims}.jsonl"
 
 Rscript $smc_cli_file \
-    --shapefile $pa_shapefile \
+    --shapefile $example_shapefile \
     --rng-seed $smc_rng_seed \
     --pop-col $pop_col \
-    --pop-tol 0.0 \
+    --pop-tol 0.0001 \
     --n-dists $n_dists \
     --n-sims $n_sims \
     --resample \
     --print | \
-    smc_parser --jsonl -o $pa_output_file -w
+    smc_parser --jsonl -o $jsonl_output_file -w && \
+    ben -m encode $jsonl_output_file -v && rm -f $jsonl_output_file

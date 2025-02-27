@@ -90,19 +90,21 @@ def make_heatmap(gdf, file_list, file_to_title_dict, output_folder):
     font_properties = font_manager.FontProperties(weight="bold", size=16)
     for label in cbar.ax.get_yticklabels():
         label.set_fontproperties(font_properties)
-        plt.tight_layout(pad=0.0, w_pad=0.0, h_pad=0.0)
 
     plt.savefig(outpath.joinpath("5x5_heatmap_all.png"), bbox_inches="tight")
 
 
 if __name__ == "__main__":
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[2]
+
     file_list = sorted(
         glob(
-            "../../example_processed_data/*seed_42*changed_assignments.txt",
+            f"{top_dir}/example_files/example_processed_data/*seed_42*changed_assignments.txt",
         )
     )
 
-    gdf = gpd.read_file("../../5x5_example")
+    gdf = gpd.read_file(f"{top_dir}/example_files/5x5_example")
 
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
@@ -119,5 +121,5 @@ if __name__ == "__main__":
         gdf=gdf,
         file_list=file_list,
         file_to_title_dict=flie_to_title,
-        output_folder="../../example_figures",
+        output_folder=f"{top_dir}/example_files/example_figures",
     )

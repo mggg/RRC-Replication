@@ -88,8 +88,6 @@ def get_weighted_stats(array, weights):
          the third quartile of the weighted array)
     """
     arg_order = np.argsort(array)
-    print(weights)
-    print(len(weights))
     sorted_array = array[arg_order]
     sorted_weights = weights[arg_order]
     cumsum_weights = list(np.cumsum(sorted_weights))

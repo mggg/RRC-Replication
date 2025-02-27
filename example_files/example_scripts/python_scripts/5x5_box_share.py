@@ -13,12 +13,15 @@ colors = [
 
 if __name__ == "__main__":
 
-    reversible_sample_1 = "../../example_processed_data/RevReCom_5x5_example_seed_42_steps_100000000_tallies.parquet"
-    reversible_sample_2 = "../../example_processed_data/RevReCom_5x5_example_seed_496189_steps_100000000_tallies.parquet"
-    reversible_sample_3 = "../../example_processed_data/RevReCom_5x5_example_seed_20250123_steps_100000000_tallies.parquet"
-    forest_sample = "../../example_processed_data/Forest_5x5_example_seed_42_gamma_0_alpha_1_steps_1000000_tallies.parquet"
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[2]
 
-    out_folder = "../../example_figures"
+    reversible_sample_1 = f"{top_dir}/example_files/example_processed_data/RevReCom_5x5_example_seed_42_steps_100000000_tallies.parquet"
+    reversible_sample_2 = f"{top_dir}/example_files/example_processed_data/RevReCom_5x5_example_seed_496189_steps_100000000_tallies.parquet"
+    reversible_sample_3 = f"{top_dir}/example_files/example_processed_data/RevReCom_5x5_example_seed_20250123_steps_100000000_tallies.parquet"
+    forest_sample = f"{top_dir}/example_files/example_processed_data/Forest_5x5_example_seed_42_gamma_0_alpha_1_steps_1000000_tallies.parquet"
+
+    out_folder = f"{top_dir}/example_files/example_figures"
     out_path = Path(out_folder)
 
     # ======================

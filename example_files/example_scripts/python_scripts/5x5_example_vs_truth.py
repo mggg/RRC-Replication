@@ -333,13 +333,16 @@ def make_recom_comparison(
 
 
 if __name__ == "__main__":
-    truth_csv = "../../true_counts_5x5_5.csv"
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[2]
 
-    reversible_sample_1 = "../../example_processed_data/RevReCom_5x5_example_seed_42_steps_100000000_cut_edges.parquet"
+    truth_csv = f"{top_dir}/example_files/true_counts_5x5_5.csv"
 
-    reversible_sample_2 = "../../example_processed_data/RevReCom_5x5_example_seed_496189_steps_100000000_cut_edges.parquet"
+    reversible_sample_1 = f"{top_dir}/example_files/example_processed_data/RevReCom_5x5_example_seed_42_steps_100000000_cut_edges.parquet"
 
-    forest_sample = "../../example_processed_data/Forest_5x5_example_seed_20250123_gamma_0_alpha_1_steps_1000000_cut_edges.parquet"
+    reversible_sample_2 = f"{top_dir}/example_files/example_processed_data/RevReCom_5x5_example_seed_496189_steps_100000000_cut_edges.parquet"
+
+    forest_sample = f"{top_dir}/example_files/example_processed_data/Forest_5x5_example_seed_20250123_gamma_0_alpha_1_steps_1000000_cut_edges.parquet"
 
     make_rev_forest_comparison(
         reversible_sample_1=reversible_sample_1,
@@ -349,13 +352,13 @@ if __name__ == "__main__":
         n_accepted=700_000,
         n_forest=180_000,
         n_items=500,
-        output_folder="../../example_figures",
+        output_folder=f"{top_dir}/example_files/example_figures",
     )
 
-    recomA_sample = "../../example_processed_data/ReComA_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
-    recomB_sample = "../../example_processed_data/ReComB_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
-    recomC_sample = "../../example_processed_data/ReComC_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
-    recomD_sample = "../../example_processed_data/ReComD_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
+    recomA_sample = f"{top_dir}/example_files/example_processed_data/ReComA_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
+    recomB_sample = f"{top_dir}/example_files/example_processed_data/ReComB_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
+    recomC_sample = f"{top_dir}/example_files/example_processed_data/ReComC_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
+    recomD_sample = f"{top_dir}/example_files/example_processed_data/ReComD_5x5_example_seed_42_steps_10000000_cut_edges.parquet"
 
     make_recom_comparison(
         recomA_sample=recomA_sample,
@@ -365,5 +368,5 @@ if __name__ == "__main__":
         truth_csv=truth_csv,
         n_accepted=3_500_000,
         n_items=500,
-        output_folder="../../example_figures",
+        output_folder=f"{top_dir}/example_files/example_figures",
     )
