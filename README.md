@@ -4,13 +4,11 @@ This is a repository containing some of the code needed to replicate the
 work for our reversible recom paper
 [Spanning Trees and Redistricting: New Methods for Sampling and Validation](https://mggg.org/rrc).
 
-This repository is not complete at this time.
-
 ## Folder Descriptions
 
 - aux_script_files: Contains a script to set up the Julia environment and install the
     necessary packages.
-- cli_file: Contains the CLIs created for running both the SMC and the Forest ReCom 
+- cli_files: Contains the CLIs created for running both the SMC and the Forest ReCom 
     methods. These were necessary for batching jobs on the HPC.
 - data_processing: Contains the main file used for processing much of the raw data
     into a format that can be used for the figure scripts.
@@ -20,7 +18,9 @@ This repository is not complete at this time.
         this directory contains the scipts used to generate the complete enumeration of
         7x7 grid graphs into 7-ominos.
 - example_files: Contains some example files that can be used to recreate several steps in
-    the analysis pipeline.
+    the analysis pipeline. All of the necessary scripts are contained in the 
+    "example_scripts" subdirectory, and they should be runnable after sourcing
+    the setup script.
 - figure_and_table_generation: Contains the scripts used to generate the figures and tables
     in the paper.
     - figure_scripts: Contains the scripts used to generate the figures in the paper.
