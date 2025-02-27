@@ -103,7 +103,7 @@ def main(file_name, grid_size, n_parts):
 
     prob_df.to_csv(
         top_dir.joinpath(
-            f"other_data_files/data_files/true_counts_{grid_size[0]}x{grid_size[1]}_{n_parts}.csv"
+            f"other_data_files/processed_data_files/true_counts_{grid_size[0]}x{grid_size[1]}_{n_parts}.csv"
         ),
         index=False,
     )
