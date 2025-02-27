@@ -339,13 +339,16 @@ def make_recom_comparison(
 
 
 if __name__ == "__main__":
-    truth_csv = "../../other_data_files/processed_data_files/true_counts_7x7_7.csv"
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[1]
 
-    reversible_sample_1 = "../../hpc_files/hpc_processed_data/7x7/7x7_RevReCom_steps_10000000000_rng_seed_278986_plan_district_20241024_115741_cut_edges.parquet"
+    truth_csv = f"{top_dir}/other_data_files/processed_data_files/true_counts_7x7_7.csv"
 
-    reversible_sample_2 = "../../hpc_files/hpc_processed_data/7x7/7x7_RevReCom_steps_10000000000_rng_seed_278986_plan_rand_dist_20241024_115741_cut_edges.parquet"
+    reversible_sample_1 = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_RevReCom_steps_10000000000_rng_seed_278986_plan_district_20241024_115741_cut_edges.parquet"
 
-    forest_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_7_20240830_142334_cut_edges.parquet"
+    reversible_sample_2 = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_RevReCom_steps_10000000000_rng_seed_278986_plan_rand_dist_20241024_115741_cut_edges.parquet"
+
+    forest_sample = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_7_20240830_142334_cut_edges.parquet"
 
     make_rev_forest_comparison(
         reversible_sample_1=reversible_sample_1,
@@ -355,13 +358,13 @@ if __name__ == "__main__":
         n_accepted=5_000_000,
         n_forest=1_500_000,
         n_items=500,
-        output_folder="../figures",
+        output_folder=f"{top_dir}/figure_and_table_generation/figures",
     )
 
-    recomA_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComA_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
-    recomB_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComB_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
-    recomC_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComC_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
-    recomD_sample = "../../hpc_files/hpc_processed_data/7x7/7x7_ReComD_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomA_sample = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_ReComA_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomB_sample = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_ReComB_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomC_sample = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_ReComC_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
+    recomD_sample = f"{top_dir}/hpc_files/hpc_processed_data/7x7/7x7_ReComD_steps_1000000000_rng_seed_278986_plan_rand_dist_20241031_122133_cut_edges.parquet"
 
     make_recom_comparison(
         recomA_sample=recomA_sample,
@@ -371,5 +374,5 @@ if __name__ == "__main__":
         truth_csv=truth_csv,
         n_accepted=10_000_000,
         n_items=500,
-        output_folder="../figures",
+        output_folder=f"{top_dir}/figure_and_table_generation/figures",
     )

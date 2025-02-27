@@ -25,6 +25,8 @@ colors = [
 ]
 
 if __name__ == "__main__":
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[1]
 
     reversible_sample_1 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_12_20241106_152157_tallies.parquet"
     reversible_sample_2 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_16_20240618_174413_tallies.parquet"

@@ -348,16 +348,21 @@ def make_linear_multigrid(JSON_file, output_folder):
 
 
 if __name__ == "__main__":
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[1]
+
     # ===================================
     # == MAKE SQUARE MULTIGRID FIGURES ==
     # ===================================
     file_list = sorted(
         glob(
-            "../../other_data_files/processed_data_files/square_multigrid/square*changed_assignments.txt",
+            f"{top_dir}/other_data_files/processed_data_files/square_multigrid/square*changed_assignments.txt",
         )
     )
 
-    square_gdf = gpd.read_file("../../shapefiles/square_multigrid/square_multigrid.shp")
+    square_gdf = gpd.read_file(
+        f"{top_dir}/shapefiles/square_multigrid/square_multigrid.shp"
+    )
 
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
@@ -374,12 +379,12 @@ if __name__ == "__main__":
         square_gdf=square_gdf,
         file_list=file_list,
         file_to_title_dict=flie_to_title,
-        output_folder="../figures",
+        output_folder=f"{top_dir}/figure_and_table_generation/figures",
     )
 
     make_square_multigrid(
-        JSON_file="../../JSON_dualgraphs/square_multigrid.json",
-        output_folder="../figures",
+        JSON_file=f"{top_dir}/JSON_dualgraphs/square_multigrid.json",
+        output_folder=f"{top_dir}/figure_and_table_generation/figures",
     )
 
     # ===================================
@@ -388,11 +393,13 @@ if __name__ == "__main__":
 
     file_list = sorted(
         glob(
-            "../../other_data_files/processed_data_files/linear_multigrid/linear*changed_assignments.txt",
+            f"{top_dir}/other_data_files/processed_data_files/linear_multigrid/linear*changed_assignments.txt",
         )
     )
 
-    linear_gdf = gpd.read_file("../../shapefiles/linear_multigrid/linear_multigrid.shp")
+    linear_gdf = gpd.read_file(
+        f"{top_dir}/shapefiles/linear_multigrid/linear_multigrid.shp"
+    )
 
     base_file_names = [file.split("/")[-1].split(".")[0] for file in file_list]
 
@@ -409,10 +416,10 @@ if __name__ == "__main__":
         linear_gdf=linear_gdf,
         file_list=file_list,
         file_to_title_dict=flie_to_title,
-        output_folder="../figures",
+        output_folder=f"{top_dir}/figure_and_table_generation/figures",
     )
 
     make_linear_multigrid(
-        JSON_file="../../JSON_dualgraphs/linear_multigrid.json",
-        output_folder="../figures",
+        JSON_file=f"{top_dir}/JSON_dualgraphs/linear_multigrid.json",
+        output_folder=f"{top_dir}/figure_and_table_generation/figures",
     )

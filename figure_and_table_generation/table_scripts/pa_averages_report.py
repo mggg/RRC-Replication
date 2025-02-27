@@ -14,8 +14,11 @@ from tqdm import tqdm
 from pathlib import Path
 
 if __name__ == "__main__":
-    out_folder = Path("../table_outputs")
-    all_files = glob("../../hpc_files/hpc_processed_data/PA/*.parquet")
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[1]
+
+    out_folder = Path(f"{top_dir}/figure_and_table_generation/table_outputs")
+    all_files = glob(f"{top_dir}/hpc_files/hpc_processed_data/PA/*.parquet")
     all_files = [Path(file).resolve() for file in all_files]
 
     sample_type_lst = [file.name.split("_")[1] for file in all_files]

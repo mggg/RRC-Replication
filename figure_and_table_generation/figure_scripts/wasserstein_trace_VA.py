@@ -55,19 +55,19 @@ def add_shares_df(df):
 
 
 if __name__ == "__main__":
-    reversible_sample_1 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_12_20241106_152157_tallies.parquet"
-    reversible_sample_2 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_16_20240618_174413_tallies.parquet"
-    reversible_sample_3 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_rand_dist_eps0p01_20241108_130356_tallies.parquet"
-    forest_sample = "../../hpc_files/hpc_processed_data/VA/VA_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_11_20241112_124346_tallies.parquet"
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[1]
 
-    out_folder = "../figures"
+    reversible_sample_1 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_12_20241106_152157_tallies.parquet"
+    reversible_sample_2 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_16_20240618_174413_tallies.parquet"
+    reversible_sample_3 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_rand_dist_eps0p01_20241108_130356_tallies.parquet"
+    forest_sample = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_11_20241112_124346_tallies.parquet"
+
+    out_folder = f"{top_dir}/figure_and_table_generation/figures"
     out_path = Path(out_folder)
 
     n_accepted = 3_300_000
     n_items = 800
-
-    # n_accepted = 300_000
-    # n_items = 5
 
     # ======================
     # + REV RECOM SAMPLE 1 +

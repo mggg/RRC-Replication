@@ -112,24 +112,39 @@ Average Sen ReComB: 5.803450614852751
 ====================================================================================================
                                                RECOMC                                               
 ====================================================================================================
+	PA_ReComC_steps_100000000_rng_seed_528170_plan_RND2CDN18_20250225_011144_tallies.parquet
+		Pres: 7.038757088449716
+		Sen: 5.803082817876687
 	PA_ReComC_steps_100000000_rng_seed_75723_plan_RANDCDN18_20250216_110045_tallies.parquet
 		Pres: 7.039501083950109
 		Sen: 5.802824760282476
 	PA_ReComC_steps_100000000_rng_seed_224116_plan_RANDCDN18_20250216_110045_tallies.parquet
 		Pres: 7.040344228789673
 		Sen: 5.804708365858749
+	PA_ReComC_steps_100000000_rng_seed_224116_plan_RND2CDN18_20250225_011144_tallies.parquet
+		Pres: 7.039530078418797
+		Sen: 5.802588617896455
+	PA_ReComC_steps_100000000_rng_seed_278986_plan_RND2CDN18_20250225_011144_tallies.parquet
+		Pres: 7.037659828117008
+		Sen: 5.804302439784878
+	PA_ReComC_steps_100000000_rng_seed_444343_plan_RND2CDN18_20250225_011144_tallies.parquet
+		Pres: 7.036996840739937
+		Sen: 5.804445436088908
 	PA_ReComC_steps_100000000_rng_seed_528170_plan_RANDCDN18_20250216_110045_tallies.parquet
 		Pres: 7.040197250401972
 		Sen: 5.805254788052548
 	PA_ReComC_steps_100000000_rng_seed_444343_plan_RANDCDN18_20250216_110045_tallies.parquet
 		Pres: 7.040778473670063
 		Sen: 5.8037863423407705
+	PA_ReComC_steps_100000000_rng_seed_75723_plan_RND2CDN18_20250225_011144_tallies.parquet
+		Pres: 7.039308320393083
+		Sen: 5.805644538056446
 	PA_ReComC_steps_100000000_rng_seed_278986_plan_RANDCDN18_20250216_110045_tallies.parquet
 		Pres: 7.036517699634823
 		Sen: 5.806290571937094
 
-Average Pres ReComC: 7.0394677472893274
-Average Sen ReComC: 5.804572965694328
+Average Pres ReComC: 7.038959089256518
+Average Sen ReComC: 5.804292867817502
 
 ====================================================================================================
                                                RECOMD                                               

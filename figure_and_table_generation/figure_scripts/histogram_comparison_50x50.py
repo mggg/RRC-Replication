@@ -101,7 +101,7 @@ def make_recom_plot(lower, upper, n_dists, glob_expr):
     None
     """
     out_path = Path("../figures")
-    data_path = Path("../../hpc_files/hpc_processed_data/50x50")
+    data_path = Path(f"{top_dir}/hpc_files/hpc_processed_data/50x50")
     _, ax = plt.subplots(figsize=(25, 10), dpi=500)
 
     recom_files = glob(str(data_path.joinpath(glob_expr).resolve()))
@@ -143,14 +143,17 @@ def make_recom_plot(lower, upper, n_dists, glob_expr):
 
 
 if __name__ == "__main__":
+    script_dir = Path(__file__).resolve().parent
+    top_dir = script_dir.parents[1]
+
     rrc_forest_10 = {
-        "RRC (10B proposed)": "../../hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x5_strip_20240618_174413_cut_edges.parquet",
-        "Forest (10M proposed)": "../../hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_10_20240830_142334_cut_edges.parquet",
+        "RRC (10B proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x5_strip_20240618_174413_cut_edges.parquet",
+        "Forest (10M proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_10_20240830_142334_cut_edges.parquet",
     }
 
     rrc_forest_smc_10 = rrc_forest_10.copy()
     rrc_forest_smc_10["SMC (100k Samples)"] = (
-        "../../hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_10_20250129_150813_cut_edges.parquet"
+        f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_10_20250129_150813_cut_edges.parquet"
     )
 
     make_method_plot(rrc_forest_10, 350, 601, 10, "forest_rrc")
@@ -158,13 +161,13 @@ if __name__ == "__main__":
     make_recom_plot(350, 601, 10, "*_ReCom*50x5_*")
 
     rrc_forest_25 = {
-        "RRC (10B proposed)": "../../hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_10x10_square_20240618_174413_cut_edges.parquet",
-        "Forest (10M proposed)": "../../hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_25_20240830_142334_cut_edges.parquet",
+        "RRC (10B proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_10x10_square_20240618_174413_cut_edges.parquet",
+        "Forest (10M proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_25_20240830_142334_cut_edges.parquet",
     }
 
     rrc_forest_smc_25 = rrc_forest_25.copy()
     rrc_forest_smc_25["SMC (100k Samples)"] = (
-        "../../hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_25_20250129_150813_cut_edges.parquet"
+        f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_25_20250129_150813_cut_edges.parquet"
     )
 
     make_method_plot(rrc_forest_25, 650, 880, 25, "forest_rrc")
@@ -172,13 +175,13 @@ if __name__ == "__main__":
     make_recom_plot(650, 880, 25, "*_ReCom*10x10_*")
 
     rrc_forest_50 = {
-        "RRC (10B proposed)": "../../hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x1_strip_20240618_174413_cut_edges.parquet",
-        "Forest (10M proposed)": "../../hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_50_20240830_142334_cut_edges.parquet",
+        "RRC (10B proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x1_strip_20240618_174413_cut_edges.parquet",
+        "Forest (10M proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_50_20240830_142334_cut_edges.parquet",
     }
 
     rrc_forest_smc_50 = rrc_forest_50.copy()
     rrc_forest_smc_50["SMC (100k Samples)"] = (
-        "../../hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_50_20250129_150813_cut_edges.parquet"
+        f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_50_20250129_150813_cut_edges.parquet"
     )
 
     make_method_plot(rrc_forest_50, 900, 1180, 50, "forest_rrc")
