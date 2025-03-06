@@ -7,7 +7,7 @@ This script is used to generate the Wasserstein trace plots for the VA ensembles
 
 import pandas as pd
 from pathlib import Path
-from helper_files.wasserstein_trace_tally import wasserstein_trace_v_full
+from helper_files.wasserstein_trace_tally import wasserstein_trace_shares
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -60,23 +60,21 @@ if __name__ == "__main__":
 
     reversible_sample_1 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_12_20241106_152157_tallies.parquet"
     reversible_sample_2 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_16_20240618_174413_tallies.parquet"
-    reversible_sample_3 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_rand_dist_eps0p01_20241108_130356_tallies.parquet"
     forest_sample = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_11_20241112_124346_tallies.parquet"
 
     out_folder = f"{top_dir}/figure_and_table_generation/figures"
     out_path = Path(out_folder)
 
-    n_accepted = 3_300_000
-    n_items = 800
+    n_accepted = 1_900_000
+    n_items = 500
+
+    rev_df1 = pd.read_parquet(reversible_sample_1)
+    rev_df2 = pd.read_parquet(reversible_sample_2)
+    forest_df = pd.read_parquet(forest_sample)
 
     # ======================
     # + REV RECOM SAMPLE 1 +
     # ======================
-    rev_df1 = pd.read_parquet(reversible_sample_1)
-    rev_df2 = pd.read_parquet(reversible_sample_2)
-    rev_df3 = pd.read_parquet(reversible_sample_3)
-    forest_df = pd.read_parquet(forest_sample)
-
     rev_df1_dem = rev_df1[rev_df1["sum_columns"] == "G16DPRS"].reset_index()
     rev_df1_rep = rev_df1[rev_df1["sum_columns"] == "G16RPRS"].reset_index()
     rev_df1_shares_total = rev_df1_dem[[f"district_{i}" for i in range(1, 12)]] / (
@@ -88,6 +86,7 @@ if __name__ == "__main__":
         inplace=True,
     )
     rev_df1_shares_total.sort_index(axis=1, inplace=True)
+    rev_df1_shares_total.reset_index(inplace=True, drop=True)
 
     # ======================
     # + REV RECOM SAMPLE 2 +
@@ -103,21 +102,7 @@ if __name__ == "__main__":
         inplace=True,
     )
     rev_df2_shares_total.sort_index(axis=1, inplace=True)
-
-    # ======================
-    # + REV RECOM SAMPLE 3 +
-    # ======================
-    rev_df3_dem = rev_df3[rev_df3["sum_columns"] == "G16DPRS"].reset_index()
-    rev_df3_rep = rev_df3[rev_df3["sum_columns"] == "G16RPRS"].reset_index()
-    rev_df3_shares_total = rev_df3_dem[[f"district_{i}" for i in range(1, 12)]] / (
-        rev_df3_dem[[f"district_{i}" for i in range(1, 12)]]
-        + rev_df3_rep[[f"district_{i}" for i in range(1, 12)]]
-    )
-    rev_df3_shares_total.rename(
-        columns={f"district_{i}": f"district_{i:02d}" for i in range(1, 12)},
-        inplace=True,
-    )
-    rev_df3_shares_total.sort_index(axis=1, inplace=True)
+    rev_df2_shares_total.reset_index(inplace=True, drop=True)
 
     # =======================
     # + FOREST RECOM SAMPLE +
@@ -133,31 +118,32 @@ if __name__ == "__main__":
         inplace=True,
     )
     forest_df_shares_total.sort_index(axis=1, inplace=True)
+    forest_df_shares_total.reset_index(inplace=True, drop=True)
 
     # =======================
     # + COLLECT WASSERSTEIN +
     # =======================
-    was_full_1f_ticks, was_full_1f_distances = wasserstein_trace_v_full(
-        shares_df=rev_df1_shares_total.iloc[:n_accepted, :],
-        full_df=forest_df_shares_total,
-        weights=rev_df1_dem.iloc[:n_accepted, :]["n_reps"],
-        weights_full=forest_df_dem["n_reps"],
+    was_rrc_compare_ticks, was_rrc_compare_distances = wasserstein_trace_shares(
+        shares1_df=rev_df1_shares_total.iloc[:n_accepted, :],
+        shares2_df=rev_df2_shares_total.iloc[:n_accepted, :],
+        weights1=rev_df1_dem.iloc[:n_accepted, :]["n_reps"],
+        weights2=rev_df2_dem.iloc[:n_accepted, :]["n_reps"],
         resolution=n_accepted / n_items,
     )
 
-    was_full_2f_ticks, was_full_2f_distances = wasserstein_trace_v_full(
-        shares_df=rev_df2_shares_total.iloc[:n_accepted, :],
-        full_df=forest_df_shares_total,
-        weights=rev_df2_dem.iloc[:n_accepted, :]["n_reps"],
-        weights_full=forest_df_dem["n_reps"],
+    was_full_1f_ticks, was_full_1f_distances = wasserstein_trace_shares(
+        shares1_df=rev_df1_shares_total.iloc[:n_accepted, :],
+        shares2_df=forest_df_shares_total.iloc[:n_accepted, :],
+        weights1=rev_df1_dem.iloc[:n_accepted, :]["n_reps"],
+        weights2=forest_df_dem.iloc[:n_accepted, :]["n_reps"],
         resolution=n_accepted / n_items,
     )
 
-    was_full_3f_ticks, was_full_3f_distances = wasserstein_trace_v_full(
-        shares_df=rev_df3_shares_total.iloc[:n_accepted, :],
-        full_df=forest_df_shares_total,
-        weights=rev_df3_dem.iloc[:n_accepted, :]["n_reps"],
-        weights_full=forest_df_dem["n_reps"],
+    was_full_2f_ticks, was_full_2f_distances = wasserstein_trace_shares(
+        shares1_df=rev_df2_shares_total.iloc[:n_accepted, :],
+        shares2_df=forest_df_shares_total.iloc[:n_accepted, :],
+        weights1=rev_df2_dem.iloc[:n_accepted, :]["n_reps"],
+        weights2=forest_df_dem.iloc[:n_accepted, :]["n_reps"],
         resolution=n_accepted / n_items,
     )
 
@@ -167,36 +153,41 @@ if __name__ == "__main__":
     _, ax = plt.subplots(figsize=(25, 10), dpi=400)
 
     sns.lineplot(
+        x=was_rrc_compare_ticks,
+        y=was_rrc_compare_distances,
+        ax=ax,
+        linewidth=3,
+        color=colors[0],
+        label="RevReCom Seed 1 vs RevReCom Seed 2",
+    )
+    sns.lineplot(
         x=was_full_1f_ticks,
         y=was_full_1f_distances,
         ax=ax,
         linewidth=3,
         color=colors[1],
-        label="Rev ReCom DYNAMIC (5B Proposed)     CD 16 vs Full Forest STATIC (10M Proposed)",
+        label="RevReCom Seed 1 vs Forest",
     )
     sns.lineplot(
         x=was_full_2f_ticks,
         y=was_full_2f_distances,
         ax=ax,
         linewidth=3,
-        color=colors[0],
-        label="Rev ReCom DYNAMIC (5B Proposed)     CD 12 vs Full Forest STATIC (10M Proposed)",
-    )
-    sns.lineplot(
-        x=was_full_3f_ticks,
-        y=was_full_3f_distances,
-        ax=ax,
-        linewidth=3,
         color=colors[3],
-        label="Rev ReCom DYNAMIC (5B Proposed) Rand Plan vs Full Forest STATIC (10M Proposed)",
+        label="RevReCom Seed 1 vs Forest",
     )
 
     ax.legend(prop={"size": 20})
     ax.tick_params(axis="both", labelsize=14)
+    ax.set_xlabel("accepted", loc="right", fontsize=12)
+    ticks = list(range(250_000, 2_000_000, 250_000))
+    ax.set_xticks(ticks)
+    ax.set_xlim(0, 1_900_000)
+    ax.set_xticklabels([f"{i/1_000_000:.2f}M" for i in ticks])
 
     plt.savefig(
         out_path.joinpath(
-            "Wasserstein_distances_VA_comparison_Dem_Shares_v_Full_Forest.png"
+            "Wasserstein_distances_VA_comparison_Dem_Shares_rrc_and_forest.png"
         ),
         bbox_inches="tight",
     )

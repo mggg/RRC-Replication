@@ -169,3 +169,120 @@ def wasserstein_trace_v_full(
             xticks.append(step)
             trace.append(distance)
     return xticks, trace
+
+
+def wasserstein_trace_shares(shares1_df, shares2_df, weights1, weights2, resolution):
+    """
+    Computes the Wasserstein trace between a full ensemble and an ongoing ensemble.
+    That is, given a full dataframe of counts and weights which generates some distribution,
+    and some ongoing array of counts and weights, the Wasserstein trace contains the Wasserstein
+    between the ongoing distribution and the totality of the full distribution at each step
+    equal to the resolution.
+
+    Parameters
+    ----------
+    shares_df : pandas.DataFrame
+        The dataframe of shares for the ongoing ensemble.
+    full_df : pandas.DataFrame
+        The dataframe of shares for the full ensemble.
+    weights : pandas.Series
+        The weights for the ongoing ensemble.
+    weights_full : pandas.Series
+        The weights for the full ensemble.
+    resolution : int
+        The resolution of the trace.
+
+    Returns
+    -------
+    (array-like, array-like):
+        The xticks for use in plotting and the trace of the Wasserstein distances.
+    """
+    assert all(shares1_df.columns == shares2_df.columns)
+
+    shares1 = shares1_df.sort_index(axis=1).to_numpy()
+    shares2 = shares2_df.sort_index(axis=1).to_numpy()
+
+    n_districts = len(shares1[0])
+
+    assert shares1_df.shape == shares2_df.shape
+
+    state1 = np.zeros(n_districts)
+    state2 = np.zeros(n_districts)
+    xticks = []
+    trace = []
+    hist1 = [Counter() for _ in range(n_districts)]
+    hist2 = [Counter() for _ in range(n_districts)]
+
+    for step, (s1, w1, s2, w2) in enumerate(
+        tqdm(zip(shares1, weights1, shares2, weights2), total=shares1.shape[0])
+    ):
+        # We assume 1-indexed districts.
+        for dist, v in enumerate(s1):
+            state1[dist] = v
+        for k, v in enumerate(sorted(state1)):
+            hist1[k][v] += w1
+        for dist, v in enumerate(s2):
+            state2[dist] = v
+        for k, v in enumerate(sorted(state2)):
+            hist2[k][v] += w2
+        if step > 0 and step % resolution == 0:
+            distance = 0
+            for dist1, dist2 in zip(hist1, hist2):
+                distance += wasserstein_distance(
+                    list(dist1.keys()),
+                    list(dist2.keys()),
+                    list(dist1.values()),
+                    list(dist2.values()),
+                )
+            xticks.append(step)
+            trace.append(distance)
+    return xticks, trace
+
+
+def wasserstein_trace_shares(shares1_df, shares2_df, weights1, weights2, resolution):
+    """
+    Computes the Wasserstein trace between a full ensemble and an ongoing ensemble.
+    """
+    # Ensure that the dataframes have the same columns
+    assert all(shares1_df.columns == shares2_df.columns)
+
+    # Convert dataframes to numpy arrays (columns sorted)
+    shares1 = shares1_df.sort_index(axis=1).to_numpy()
+    shares2 = shares2_df.sort_index(axis=1).to_numpy()
+
+    n_districts = shares1.shape[1]
+    assert shares1_df.shape == shares2_df.shape
+
+    xticks = []
+    trace = []
+    # Initialize a counter per district for each ensemble
+    hist1 = [Counter() for _ in range(n_districts)]
+    hist2 = [Counter() for _ in range(n_districts)]
+
+    for step, (s1, w1, s2, w2) in enumerate(
+        tqdm(zip(shares1, weights1, shares2, weights2), total=shares1.shape[0])
+    ):
+        # Directly sort the current row using NumPy
+        sorted_s1 = np.sort(s1)
+        for k, v in enumerate(sorted_s1):
+            hist1[k][v] += w1
+
+        sorted_s2 = np.sort(s2)
+        for k, v in enumerate(sorted_s2):
+            hist2[k][v] += w2
+
+        # Compute the Wasserstein trace at the specified resolution
+        if step > 0 and step % resolution == 0:
+            distance = sum(
+                wasserstein_distance(
+                    list(dist1.keys()),
+                    list(dist2.keys()),
+                    list(dist1.values()),
+                    list(dist2.values()),
+                )
+                for dist1, dist2 in zip(hist1, hist2)
+            )
+            xticks.append(step)
+            trace.append(distance)
+
+    return xticks, trace

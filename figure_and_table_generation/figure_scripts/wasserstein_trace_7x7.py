@@ -126,7 +126,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[0],
-        label="RRC Seed 1 (5M Accepted) vs RRC Seed 2 (5M Accepted)",
+        label="RevReCom Seed 1 vs RevReCom Seed 2",
     )
     sns.lineplot(
         x=was_rev1_ticks,
@@ -134,7 +134,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[2],
-        label="RRC Seed 1 (5M Accepted) vs Truth",
+        label="RevReCom Seed 1 vs full",
     )
     sns.lineplot(
         x=was_rev2_ticks,
@@ -142,7 +142,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[8],
-        label="RRC Seed 2 (5M Accepted) vs Truth",
+        label="RevReCom Seed 2 vs full",
     )
     sns.lineplot(
         x=was_forest_ticks,
@@ -150,7 +150,7 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[1],
-        label="Forest       (1.5M Accepted) vs Truth",
+        label="Forest vs full",
     )
 
     plot_tick_step = 500_000
@@ -158,6 +158,7 @@ def make_rev_forest_comparison(
     ax.set_xticks(plot_tick_list)
     ax.set_xticklabels([f"{i/1_000_000:0}M" for i in plot_tick_list])
     ax.set_xlim(0, 4_900_000)
+    ax.set_xlabel("accepted", loc="right", fontsize=12)
     ax.legend(loc="upper right")
 
     plt.savefig(
@@ -260,7 +261,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[3],
-            label=f"ReComA ({n_accepted//1_000_000}M accepted) vs Truth",
+            label=f"ReCom-A vs full",
         )
         sns.lineplot(
             x=was_recomB_ticks,
@@ -268,7 +269,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[4],
-            label=f"ReComB ({n_accepted//1_000_000}M accepted) vs Truth",
+            label=f"ReCom-B vs full",
         )
         sns.lineplot(
             x=was_recomC_ticks,
@@ -276,7 +277,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[5],
-            label=f"ReComC ({n_accepted//1_000_000}M accepted) vs Truth",
+            label=f"ReCom-C vs full",
         )
         sns.lineplot(
             x=was_recomD_ticks,
@@ -284,7 +285,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[6],
-            label=f"ReComD ({n_accepted//1_000_000}M accepted) vs Truth",
+            label=f"ReCom-D vs full",
         )
         plot_tick_list = list(range(2_000_000, n_accepted + 1_000_000, 2_000_000))
         ax.set_xticks(plot_tick_list)
@@ -297,7 +298,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[3],
-            label=f"ReComA ({n_accepted//1_000}k accepted) vs Truth",
+            label=f"ReComA vs full",
         )
         sns.lineplot(
             x=was_recomB_ticks,
@@ -305,7 +306,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[4],
-            label=f"ReComB ({n_accepted//1_000}k accepted) vs Truth",
+            label=f"ReComB vs full",
         )
         sns.lineplot(
             x=was_recomC_ticks,
@@ -313,7 +314,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[5],
-            label=f"ReComC ({n_accepted//1_000}k accepted) vs Truth",
+            label=f"ReComC vs full",
         )
         sns.lineplot(
             x=was_recomD_ticks,
@@ -321,7 +322,7 @@ def make_recom_comparison(
             ax=ax,
             linewidth=3,
             color=colors[6],
-            label=f"ReComD ({n_accepted//1_000}k accepted) vs Truth",
+            label=f"ReComD vs full",
         )
         plot_tick_list = list(range(10_000, n_accepted, 10_000))
         ax.set_xticks(plot_tick_list)
@@ -329,6 +330,7 @@ def make_recom_comparison(
 
     ax.set_xlim(0, 0.99 * n_accepted)
     ax.legend(loc="upper right")
+    ax.set_xlabel("accepted", loc="right", fontsize=12)
 
     plt.savefig(
         out_path.joinpath(

@@ -10,3 +10,4 @@ dev_files
 # These might be added later when the full repo is complete
 mile_marker.txt
 checker.ipynb
+*.pkl

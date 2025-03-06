@@ -1,4 +1,4 @@
-# Descritions for Images in this Folder
+# Descriptions for Images in this Folder
 
 
 ### 50x50_10_dist_forest_rrc_comparison.png
@@ -93,6 +93,13 @@ into 6 districts using Markov Chain Monte Carlo methods. There are 6 methods dis
 graph: ReCom-A, ReCom-B, ReCom-C, ReCom-D, Reversible ReCom, and Forest ReCom. Here, we compare 
 the normalized frequency with which a node has been reassigned in the first 50k accepted proposals.
 
+### pa_pres_sen_dotplot.png
+
+This is a scatterplot that contains a scatter plot for the expected number of democratic
+districts according the the data in a particluar election. In this case, we examine the
+2016 general election and look at the expected number of districts won by the presidential
+candidate vs the expected number of districts won by the senatorial candidate.
+
 ### square_multigrid_dual_graph.png
 
 This is a dual graph for the square multigrid. The square multigrid is composed of 4 sections:
@@ -132,12 +139,10 @@ This is a graph comparing the trace of the Wasserstein distances between several
 ReCom methods and the spanning tree distribution on the 7x7 grid when cut into 7-ominos.
 We run each of the samples until 10 million accepted plans are found.
 
-### Wasserstein_distances_VA_comparison_Dem_Stares_v_Full_Forest.png
+### Wasserstein_distances_VA_comparison_Dem_Shares.png
 
 This image is meant to be similar to the 7x7 comparison graph except instead of comparing
-against the fully known true spanning tree distribution, we instead compare against
-the distribution of Democtratic vote shares on a 10M proposal Forest ReCom ensemble.
-That is to say, we allow for the number of points in the Rev ReCom sample to change
-and we track the convergence in Wasserstein distance of several Reversible ReCom samples,
-each starting from a different seed plan ("CD 16", "CD 12", or "Rand Plan") to the
-distribution of Democratic vote shares given by the 10M plan Forest ensemble.
+against the fully known true spanning tree distribution, we compare the traces
+of distributions gathered using several methods. In this case, we use RevReCom with
+two different starting seed plans and compare them against both each other and
+a Forest ensemble.

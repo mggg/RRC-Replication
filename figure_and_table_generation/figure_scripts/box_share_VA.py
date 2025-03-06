@@ -168,9 +168,9 @@ if __name__ == "__main__":
     ax.legend(
         handles=handles,
         labels=[
-            "RRC CD 12 (5B proposed)",
-            "RRC CD 16 (5B proposed)",
-            "RRC Rand Plan (5B proposed)",
+            "RevReCom Seed 1 (5B proposed)",
+            "RevReCom Seed 2 (5B proposed)",
+            "RevReCom Seed 3 (5B proposed)",
             "Forest (10M proposed)",
         ],
         loc="upper left",
