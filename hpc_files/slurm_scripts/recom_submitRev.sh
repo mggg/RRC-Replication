@@ -14,13 +14,13 @@ pa_job_name="Reversible_PA"
 pa_cores=8
 pa_batch_size=8
 
-pa_plan_seeds=("2011_PLA_1" "rand_dist_eps0p01")
+pa_plan_seeds=("RANDCDN18" "RND2CDN18")
 pa_random_seeds=(278986 224116 528170 444343 75723)
 
 pa_json_file="${TOP_DIR}/JSON_dualgraphs/PA_VTD_20.json"
 pa_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/PA"
 
-pa_pop_col="TOT_POP"
+pa_pop_col="TOTPOP"
 pa_pop_tol="0.01"
 pa_recom_steps=5000000000
 
@@ -119,8 +119,7 @@ seven_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/7x7"
 
 seven_pop_col="TOTPOP"
 seven_pop_tol="0.00"
-seven_recom_steps=100000000
-
+seven_recom_steps=10000000000
 
 for seven_plan in "${seven_plan_seeds[@]}"
 do

@@ -23,10 +23,10 @@ pa_random_seeds=(278986 224116 528170 444343 75723 183080 491349 397747 885844 4
 pa_json_file="${TOP_DIR}/JSON_dualgraphs/PA_VTD_20.json"
 pa_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/PA"
 
-pa_region="GEOID10"
-pa_subregion="GEOID10"
+pa_region="PATH"
+pa_subregion="PATH"
 
-pa_pop_col="TOT_POP"
+pa_pop_col="TOTPOP"
 pa_num_dists=18
 pa_pop_dev=0.01
 pa_gamma=0.0
@@ -48,8 +48,6 @@ do
         --nodes=1 \
         --cpus-per-task=$pa_cores \
         --ntasks-per-node=1 \
-        --mail-type=$smail_type \
-        --mail-user=$smail_user \
         --wrap="julia $julia_cli_file \
             --input-file-name=$pa_json_file \
             --rng-seed=$pa_rng_seed \

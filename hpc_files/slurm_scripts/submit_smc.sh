@@ -9,18 +9,16 @@ TOP_DIR=$(realpath "$SCRIPT_DIR/../..")
 # Some sbatch parameters
 stime="3-00:00:00"
 smem="96G"
-smail_type="ALL"
-smail_user="prock01@tufts.edu"
 
 
-smc_cli_file="/cluster/tufts/mggg/prock01/Reversible_Recom_May_2024/SMC/smc_cli.R"
+smc_cli_file="${TOP_DIR}/cli_files/smc_cli.R"
 
 pa_job_name="SMC_PA"
 pa_cores=16
 
 pa_random_seeds=(278986 224116 528170 444343 75723 183080 491349 397747 885844 416713)
 
-pa_shapefile="${TOP_DIR}/shapefiles/shape/PA_VTD_20"
+pa_shapefile="${TOP_DIR}/shapefiles/PA_VTD_20"
 pa_output_folder="${TOP_DIR}/hpc_files/hpc_raw_data/PA"
 
 pa_pop_col="TOTPOP"
@@ -43,8 +41,6 @@ do
         --nodes=1 \
         --cpus-per-task=$pa_cores \
         --ntasks-per-node=1 \
-        --mail-type=$smail_type \
-        --mail-user=$smail_user \
         --wrap="Rscript $smc_cli_file \
             --shapefile $pa_shapefile \
             --rng-seed $pa_rng_seed \
@@ -56,7 +52,6 @@ do
             --print | \
             smc_parser --jsonl -o $pa_output_file -w";
 done
-
 
 
 smem="32G"
@@ -87,8 +82,6 @@ do
         --nodes=1 \
         --cpus-per-task=$fifty_cores \
         --ntasks-per-node=1 \
-        --mail-type=$smail_type \
-        --mail-user=$smail_user \
         --wrap="Rscript $smc_cli_file \
             --shapefile $fifty_shapefile \
             --rng-seed $fifty_random_seed \

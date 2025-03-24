@@ -25,10 +25,10 @@ do
     pa_cores=2
     pa_batch_size=2
 
-    pa_plan_seeds=("2011_PLA_1" "rand_dist_eps0p01")
+    pa_plan_seeds=("RANDCDN18" "RND2CDN18")
     pa_random_seeds=(278986 224116 528170 444343 75723)
 
-    pa_pop_col="TOT_POP"
+    pa_pop_col="TOTPOP"
     pa_pop_tol="0.01"
     pa_recom_steps=100000000
 
@@ -80,6 +80,8 @@ do
     seven_pop_col="TOTPOP"
     seven_pop_tol="0.00"
 
+    # IT IS NOT POSSIBLE TO DO THE 10B STEPS AND COLLECT STATISTICS
+    # ON A COMPUTER WITH LESS THAN 220GB OF RAM 
     seven_recom_steps=1000000000
 
     for seven_plan in "${seven_plan_seeds[@]}"
