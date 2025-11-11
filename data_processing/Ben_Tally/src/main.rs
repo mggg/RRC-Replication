@@ -70,7 +70,7 @@ struct Args {
     #[arg(short, long)]
     max_accepted: Option<usize>,
     #[arg(short, long, default_value_t = true)]
-    mkv_rand_reassignment_off: bool,
+    mkv_rand_reassignment_on: bool,
     #[arg(short, long, num_args(1..))]
     keys: Vec<String>,
 }
@@ -122,7 +122,7 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
                 &args.ben_file,
                 args.normalize,
                 args.max_accepted,
-                args.mkv_rand_reassignment_off,
+                args.mkv_rand_reassignment_on,
             )?;
         }
     }
