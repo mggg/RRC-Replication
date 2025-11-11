@@ -133,7 +133,7 @@ def make_recom_plot(lower, upper, glob_expr):
     ax.set_xticklabels([str(i) for i in range(28, 41, 2)], fontsize=16)
     ax.set_yticks([])
     plt.savefig(
-        out_path.joinpath(f"7x7_ReCom_comparison_{n}.png"),
+        out_path.joinpath(f"7x7_ReCom_comparison_all.png"),
         bbox_inches="tight",
     )
     plt.close()
