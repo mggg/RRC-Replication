@@ -14,7 +14,7 @@ behind the chosen sample size. In general, the goal was to adhere to three const
 Main limiting factor was runtime. Also the memory requirements for the version of R and SMC that
 we were using were pretty high (90+ GB).
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | ReCom ABCD |    100,000,000    |
 | RevReCom   |   5,000,000,000   |
@@ -26,7 +26,7 @@ we were using were pretty high (90+ GB).
 
 Main limiting factor was runtime. Actually allowed Forest to run for 3 days to get a good sample.
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | RevReCom   |   5,000,000,000   |
 | Forest     |    10,000,000     |
@@ -36,7 +36,7 @@ Main limiting factor was runtime. Actually allowed Forest to run for 3 days to g
 
 No relevant limitations. We just didn't need to push the sample size further.
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | ReCom ABCD |   1,000,000,000   |
 | RevReCom   |  10,000,000,000   |
@@ -48,7 +48,7 @@ No relevant limitations. We just didn't need to push the sample size further.
 Main limiting factor was runtime. Also, the ReCom methods became slower as district count decreased
 whereas SMC became slower as district count increased. Limited ReCom runs due to output file size.
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | ReCom ABCD |   1,000,000,000   |
 | RevReCom   |  10,000,000,000   |
@@ -60,7 +60,7 @@ whereas SMC became slower as district count increased. Limited ReCom runs due to
 
 No relevant limitations. We just didn't need to push the sample size further.
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | ReCom ABCD |     1,000,000     |
 | RevReCom   |    100,000,000    |
@@ -70,7 +70,7 @@ No relevant limitations. We just didn't need to push the sample size further.
 
 No relevant limitations. We just didn't need to push the sample size further.
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | ReCom ABCD |     1,000,000     |
 | RevReCom   |    200,000,000    |
@@ -80,6 +80,32 @@ No relevant limitations. We just didn't need to push the sample size further.
 
 What follows are the descriptions for each of the images used in the paper. The descriptions for
 files with the post-fix "_legend" are omitted as those are self-explanatory.
+
+### 7x7_ReCom_comparison_all.png (NOT USED IN PAPER)
+
+This is a histogram that compares all of our vanilla ReCom samples on the 7x7 grid to each other.
+This was used for sanity checking some of our results. 
+
+### 7x7_ReCom_comparison_ReComA.png (NOT USED IN PAPER)
+
+This is a histogram that compares the cut edge distribution of our 1B ReCom-A sample on the 7x7
+grid to the ground truth distribution. This was used for sanity checking some of our results. 
+
+### 7x7_ReCom_comparison_ReComB.png (NOT USED IN PAPER)
+
+This is a histogram that compares the cut edge distribution of our 1B ReCom-B sample on the 7x7
+grid to the ground truth distribution. This was used for sanity checking some of our results. 
+
+### 7x7_ReCom_comparison_ReComC.png (NOT USED IN PAPER)
+
+This is a histogram that compares the cut edge distribution of our 1B ReCom-C sample on the 7x7
+grid to the ground truth distribution. This was used for sanity checking some of our results. 
+
+### 7x7_ReCom_comparison_ReComD.png (NOT USED IN PAPER)
+
+This is a histogram that compares the cut edge distribution of our 1B ReCom-D sample on the 7x7
+grid to the ground truth distribution. This was used for sanity checking some of our results. 
+
 
 ### 7x7_wasserstein_scatter_plot_5k_to_100k.png
 
