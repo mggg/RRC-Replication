@@ -271,7 +271,7 @@ def make_recom_comparison(
     )
 
     for i in range(17):
-        ax.axhline(y=0.1 * i, color="#bbb", linewidth=2.5)
+        ax.axhline(y=0.1 * i, color="lightgrey", linewidth=2)
 
     linewidth = 5
 
@@ -342,9 +342,9 @@ def make_recom_comparison(
         ax.set_xticklabels([f"{i//1_000}k" for i in plot_tick_list])
 
     ax.set_xlim(0, 0.99 * n_accepted)
-    ax.set_xticklabels(ax.get_xticklabels(), fontsize=16)
-    ax.set_yticklabels(ax.get_yticklabels(), fontsize=16)
-    ax.set_xlabel("accepted", loc="right", fontsize=16)
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=24)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=24)
+    ax.set_xlabel("accepted", loc="right", fontsize=24)
 
     plt.savefig(
         out_path.joinpath(

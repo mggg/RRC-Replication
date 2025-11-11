@@ -147,10 +147,10 @@ if __name__ == "__main__":
             res = ax.bxp(
                 [boxplot_stats],
                 positions=[2 * (i + 1) + (j * 0.45)],
-                capprops={"color": colors[j]},
-                boxprops={"facecolor": colors[j], "edgecolor": colors[j], "alpha": 0.6},
-                whiskerprops={"color": colors[j]},
-                medianprops={"color": colors[j]},
+                capprops={"color": "black"},
+                boxprops={"facecolor": colors[j], "edgecolor": "black"},
+                whiskerprops={"color": "black"},
+                medianprops={"color": "black"},
                 widths=0.35,
                 patch_artist=True,
             )
@@ -165,7 +165,8 @@ if __name__ == "__main__":
         print(f"Done iteration {j+1}/{len(arrs)}")
 
     ax.set_xticks([2 * i + 0.75 for i in range(1, arrs[0].shape[1] + 1)])
-    ax.set_xticklabels([i for i in range(1, arrs[0].shape[1] + 1)])
+    ax.set_xticklabels([i for i in range(1, arrs[0].shape[1] + 1)], fontsize=14)
+    ax.set_yticklabels([f"{i:.1f}" for i in ax.get_yticks()], fontsize=14)
 
     plt.savefig(
         out_path.joinpath("dem_share_boxplots_VA.png"), dpi=300, bbox_inches="tight"
@@ -177,9 +178,9 @@ if __name__ == "__main__":
         handles=handles,
         filename=out_path.joinpath("dem_share_boxplots_VA_legend.png"),
         labels=[
-            "RevReCom 1",
-            "RevReCom 2",
-            "RevReCom 3",
+            "RevReCom1",
+            "RevReCom2",
+            "RevReCom3",
             "Forest",
         ],
         label_fontsize=16,

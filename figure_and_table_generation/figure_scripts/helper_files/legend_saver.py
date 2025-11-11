@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib.lines import Line2D
+import numpy as np
 
 
 def save_legend_png(
@@ -13,7 +14,7 @@ def save_legend_png(
     dpi=200,
     label_fontsize=10,
     title_fontsize=None,
-    pad_in=0.25,
+    pad_in=0.0,
 ):
     """
     Save a standalone legend as a PNG (transparent background).
@@ -69,10 +70,7 @@ def save_legend_png(
     w_in, h_in = bbox.width / fig.dpi, bbox.height / fig.dpi
     fig.set_size_inches(w_in + pad_in, h_in + pad_in)
 
-    # Transparent background
-    fig.patch.set_alpha(0)
-
-    fig.savefig(filename, dpi=dpi, bbox_inches="tight", transparent=True)
+    fig.savefig(filename, dpi=dpi, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -99,3 +97,59 @@ def marker_handles(labels, colors, markers=None, linestyle="none", linewidth=2):
         )
         for i in range(len(labels))
     ]
+
+
+def scatter_handles(
+    labels,
+    colors,
+    markers="o",
+    sizes=36,
+    edgecolors="none",
+    alphas=1.0,
+    linewidths=0.8,
+):
+    """
+    Build legend handles that look like scatter points.
+
+    Parameters
+    ----------
+    labels : list[str]
+    colors : list[str]
+    markers : str | list[str]
+        Marker style(s), e.g., "o", "^", "s".
+    sizes : float | list[float]
+        Area(s) in pt² (like scatter's `s`). Converted to markersize via sqrt.
+    edgecolors : str | list[str]
+    alphas : float | list[float]
+    linewidths : float | list[float]
+    """
+    # Broadcast scalars to lists
+    n = len(labels)
+    if not isinstance(markers, (list, tuple)):
+        markers = [markers] * n
+    if not isinstance(sizes, (list, tuple, np.ndarray)):
+        sizes = [sizes] * n
+    if not isinstance(edgecolors, (list, tuple)):
+        edgecolors = [edgecolors] * n
+    if not isinstance(alphas, (list, tuple, np.ndarray)):
+        alphas = [alphas] * n
+    if not isinstance(linewidths, (list, tuple, np.ndarray)):
+        linewidths = [linewidths] * n
+
+    handles = []
+    for i in range(n):
+        ms = float(np.sqrt(sizes[i]))  # convert area (pt²) -> markersize (pt)
+        h = Line2D(
+            [0],
+            [0],
+            marker=markers[i],
+            linestyle="",  # no line
+            markersize=ms,
+            markerfacecolor=colors[i],
+            markeredgecolor=edgecolors[i],
+            alpha=alphas[i],
+            markeredgewidth=linewidths[i],
+            label=labels[i],
+        )
+        handles.append(h)
+    return handles

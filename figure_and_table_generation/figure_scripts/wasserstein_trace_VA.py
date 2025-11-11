@@ -132,6 +132,15 @@ if __name__ == "__main__":
         resolution=n_accepted / n_items,
     )
 
+    import json
+
+    with open("wasserstein_trace_VA_rrc_compare.json", "w") as f:
+        json.dump(
+            {"ticks": was_rrc_compare_ticks, "distances": was_rrc_compare_distances},
+            f,
+            indent=4,
+        )
+
     was_full_1f_ticks, was_full_1f_distances = wasserstein_trace_shares(
         shares1_df=rev_df1_shares_total.iloc[:n_accepted, :],
         shares2_df=forest_df_shares_total.iloc[:n_accepted, :],
@@ -140,6 +149,13 @@ if __name__ == "__main__":
         resolution=n_accepted / n_items,
     )
 
+    with open("wasserstein_trace_VA_full_1f_compare.json", "w") as f:
+        json.dump(
+            {"ticks": was_full_1f_ticks, "distances": was_full_1f_distances},
+            f,
+            indent=4,
+        )
+
     was_full_2f_ticks, was_full_2f_distances = wasserstein_trace_shares(
         shares1_df=rev_df2_shares_total.iloc[:n_accepted, :],
         shares2_df=forest_df_shares_total.iloc[:n_accepted, :],
@@ -147,6 +163,13 @@ if __name__ == "__main__":
         weights2=forest_df_dem.iloc[:n_accepted, :]["n_reps"],
         resolution=n_accepted / n_items,
     )
+
+    with open("wasserstein_trace_VA_full_2f_compare.json", "w") as f:
+        json.dump(
+            {"ticks": was_full_2f_ticks, "distances": was_full_2f_distances},
+            f,
+            indent=4,
+        )
 
     # ======================
     # + START MAKING PLOTS +
@@ -175,8 +198,8 @@ if __name__ == "__main__":
         color=colors[3],
     )
 
-    ax.tick_params(axis="both", labelsize=14)
-    ax.set_xlabel("accepted", loc="right", fontsize=12)
+    ax.tick_params(axis="both", labelsize=24)
+    ax.set_xlabel("accepted", loc="right", fontsize=24)
     ticks = list(range(250_000, 2_000_000, 250_000))
     ax.set_xticks(ticks)
     ax.set_xlim(0, 1_900_000)

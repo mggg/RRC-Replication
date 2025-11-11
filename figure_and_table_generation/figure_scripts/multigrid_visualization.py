@@ -84,11 +84,11 @@ def make_square_multigrid_heatmap(
         file_name = file.split("/")[-1].split(".")[0]
         if row_pos > 0:
             ax[row_pos, col_pos].set_title(
-                file_to_title_dict[file_name], y=-0.03, size=20, weight="bold"
+                file_to_title_dict[file_name], y=-0.05, size=36, weight="bold"
             )
         else:
             ax[row_pos, col_pos].set_title(
-                file_to_title_dict[file_name], y=0.97, size=20, weight="bold"
+                file_to_title_dict[file_name], y=0.97, size=36, weight="bold"
             )
 
     plt.tight_layout(pad=0.0, w_pad=0.0, h_pad=0.0)
@@ -196,7 +196,9 @@ def make_linear_multigrid_heatmap(
     -------
     None
     """
-    fig, ax = plt.subplots(3, 2, figsize=(33, 9), dpi=400)
+    fig, ax = plt.subplots(
+        3, 2, figsize=(33, 9), dpi=400, gridspec_kw={"wspace": 0.0, "hspace": 0.0}
+    )
 
     outpath = Path(output_folder)
 
@@ -248,7 +250,7 @@ def make_linear_multigrid_heatmap(
                 ha="center",
                 va="center",
                 weight="bold",
-                fontsize=20,
+                fontsize=28,
             )
 
         else:
@@ -261,10 +263,10 @@ def make_linear_multigrid_heatmap(
                 ha="center",
                 va="center",
                 weight="bold",
-                fontsize=20,
+                fontsize=28,
             )
 
-    plt.tight_layout(w_pad=0)
+    plt.tight_layout(w_pad=3.0, h_pad=0)
     plt.savefig(
         outpath.joinpath("linear_multigrid_heatmap_all.png"), bbox_inches="tight"
     )
@@ -352,7 +354,7 @@ if __name__ == "__main__":
         "square_rev_100M_accept_50000_changed_assignments": "RevReCom",
         "square_C_1M_accept_50000_changed_assignments": "ReCom-C",
         "square_D_1M_accept_50000_changed_assignments": "ReCom-D",
-        "square_forest_1M_jl_accept_50000_changed_assignments": "Forest ReCom",
+        "square_forest_1M_jl_accept_50000_changed_assignments": "Forest",
     }
 
     make_square_multigrid_heatmap(
@@ -386,10 +388,10 @@ if __name__ == "__main__":
     flie_to_title = {
         "linear_A_1M_accept_50000_changed_assignments": "ReCom-A",
         "linear_B_1M_accept_50000_changed_assignments": "ReCom-B",
-        "linear_rev_200M_accept_50000_changed_assignments": "RevReCom",
         "linear_C_1M_accept_50000_changed_assignments": "ReCom-C",
         "linear_D_1M_accept_50000_changed_assignments": "ReCom-D",
-        "linear_forest_1M_jl_accept_50000_changed_assignments": "Forest ReCom",
+        "linear_rev_200M_accept_50000_changed_assignments": "RevReCom",
+        "linear_forest_1M_jl_accept_50000_changed_assignments": "Forest",
     }
 
     make_linear_multigrid_heatmap(

@@ -208,4 +208,4 @@ if __name__ == "__main__":
 
     make_method_plot(rrc_forest_50, 900, 1151, 50, "forest_rrc")
     make_method_plot(rrc_forest_smc_50, 900, 1151, 50, "forest_rrc_smc")
-    make_recom_plot(900, 1180, 50, "*_ReCom*50x1_*")
+    make_recom_plot(900, 1151, 50, "*_ReCom*50x1_*")
