@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 recom_names=("ReComA" "ReComB" "ReComC" "ReComD")
 recom_variants=("cut-edges-rmst" "district-pairs-rmst" "cut-edges-ust" "district-pairs-ust")

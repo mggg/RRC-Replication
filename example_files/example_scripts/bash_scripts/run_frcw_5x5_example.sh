@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 # Trap Ctrl-C and kill all background jobs
 trap 'echo .; echo "Keyboard interrupt detected. Exiting..."; kill 0; exit 1;' SIGINT

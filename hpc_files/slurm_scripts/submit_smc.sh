@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 current_time=$(date +"%Y%m%d_%H%M%S")
 

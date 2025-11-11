@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 julia aux_script_files/setup.jl
 export JULIA_PROJECT=$(pwd)
