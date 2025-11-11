@@ -1,5 +1,97 @@
-# Descriptions for Images in this Folder
+# Final Images for the Reversible Recom Paper
 
+## Sample Sizes
+
+What follows is a list of the sample sizes that were used in the paper as well as the reasoning
+behind the chosen sample size. In general, the goal was to adhere to three constraints:
+
+1. Be able to run the sample using the SLURM script within 48 hours.
+2. Keep the final output BEN file under 2 GB.
+3. Make it so that similar methods (e.g. ReCom ABCD) all had the same number of proposed steps.
+
+### PA
+
+Main limiting factor was runtime. Also the memory requirements for the version of R and SMC that
+we were using were pretty high (90+ GB).
+
+|   Method   | Number of Samples |
+| ---------- | ----------------- |
+| ReCom ABCD |    100,000,000    |
+| RevReCom   |   5,000,000,000   |
+| Forest     |     4,000,000     |
+| SMC        |      70,000       |
+
+
+### VA
+
+Main limiting factor was runtime. Actually allowed Forest to run for 3 days to get a good sample.
+
+|   Method   | Number of Samples |
+| ---------- | ----------------- |
+| RevReCom   |   5,000,000,000   |
+| Forest     |    10,000,000     |
+
+
+### 7x7
+
+No relevant limitations. We just didn't need to push the sample size further.
+
+|   Method   | Number of Samples |
+| ---------- | ----------------- |
+| ReCom ABCD |   1,000,000,000   |
+| RevReCom   |  10,000,000,000   |
+| Forest     |    10,000,000     |
+| SMC        |      Varied       |
+
+### 50x50
+
+Main limiting factor was runtime. Also, the ReCom methods became slower as district count decreased
+whereas SMC became slower as district count increased. Limited ReCom runs due to output file size.
+
+|   Method   | Number of Samples |
+| ---------- | ----------------- |
+| ReCom ABCD |   1,000,000,000   |
+| RevReCom   |  10,000,000,000   |
+| Forest     |    10,000,000     |
+| SMC        |      100,000      |
+
+
+### Square Multigrid
+
+No relevant limitations. We just didn't need to push the sample size further.
+
+|   Method   | Number of Samples |
+| ---------- | ----------------- |
+| ReCom ABCD |     1,000,000     |
+| RevReCom   |    100,000,000    |
+| Forest     |     1,000,000     |
+
+### Linear Multigrid
+
+No relevant limitations. We just didn't need to push the sample size further.
+
+|   Method   | Number of Samples |
+| ---------- | ----------------- |
+| ReCom ABCD |     1,000,000     |
+| RevReCom   |    200,000,000    |
+| Forest     |     1,000,000     |
+
+## Image descriptions
+
+What follows are the descriptions for each of the images used in the paper. The descriptions for
+files with the post-fix "_legend" are omitted as those are self-explanatory.
+
+### 7x7_wasserstein_scatter_plot_5k_to_100k.png
+
+This is a scatter plot showing the Wasserstein distance from the true cut edge distribution over 
+a collection of SMC trials. Each of the trials contained a batch of 5000-100000 plans (in 
+increments of 5000), and the batches collected with 22 different random seeds per batch size.
+
+### 7x7_wasserstein_scatter_plot_50_to_5000.png
+
+This is a scatter plot showing the Wasserstein distance from the true cut edge distribution over 
+a collection of SMC trials. Each of the trials contained a batch of 50-5000 plans (in 
+increments of 50), and the batches collected with 11 different random seeds per batch size.
 
 ### 50x50_10_dist_forest_rrc_comparison.png
 
@@ -93,7 +185,7 @@ into 6 districts using Markov Chain Monte Carlo methods. There are 6 methods dis
 graph: ReCom-A, ReCom-B, ReCom-C, ReCom-D, Reversible ReCom, and Forest ReCom. Here, we compare 
 the normalized frequency with which a node has been reassigned in the first 50k accepted proposals.
 
-### pa_pres_sen_dotplot.png
+### pa_pres_sen_dotplot.png (NOT USED IN PAPER)
 
 This is a scatterplot that contains a scatter plot for the expected number of democratic
 districts according the the data in a particluar election. In this case, we examine the
