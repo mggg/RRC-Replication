@@ -1,5 +1,5 @@
 """
-Last Updated: 16-01-2025
+Last Updated: 10-11-2025 (Nov 10)
 Author: Peter Rock <peter@mggg.org>
 
 This script is used to generate the multigrid heatmaps for the square and linear
@@ -91,17 +91,7 @@ def make_square_multigrid_heatmap(
                 file_to_title_dict[file_name], y=0.97, size=20, weight="bold"
             )
 
-    cax = fig.add_axes([1.01, 0.1, 0.02, 0.8])  # [left, bottom, width, height]
-    sm = plt.cm.ScalarMappable(
-        cmap="viridis", norm=plt.Normalize(vmin=min_val, vmax=max_val)
-    )
-    cbar = fig.colorbar(sm, cax=cax, orientation="vertical")
-
-    font_properties = font_manager.FontProperties(weight="bold", size=16)
-    for label in cbar.ax.get_yticklabels():
-        label.set_fontproperties(font_properties)
-        plt.tight_layout(pad=0.0, w_pad=0.0, h_pad=0.0)
-
+    plt.tight_layout(pad=0.0, w_pad=0.0, h_pad=0.0)
     plt.savefig(
         outpath.joinpath("square_multigrid_heatmap_all.png"), bbox_inches="tight"
     )
@@ -274,16 +264,6 @@ def make_linear_multigrid_heatmap(
                 fontsize=20,
             )
 
-    cax = fig.add_axes([0.2, -0.08, 0.6, 0.08])  # [left, bottom, width, height]
-    sm = plt.cm.ScalarMappable(
-        cmap="viridis", norm=plt.Normalize(vmin=min_val, vmax=max_val)
-    )
-    cbar = fig.colorbar(sm, cax=cax, orientation="horizontal")
-
-    font_properties = font_manager.FontProperties(weight="bold", size=16)
-    for label in cbar.ax.get_xticklabels():
-        label.set_fontproperties(font_properties)
-
     plt.tight_layout(w_pad=0)
     plt.savefig(
         outpath.joinpath("linear_multigrid_heatmap_all.png"), bbox_inches="tight"
@@ -308,7 +288,7 @@ def make_linear_multigrid_heatmap(
     for label in cbar.ax.get_xticklabels():
         label.set_fontproperties(font_properties)
 
-    plt.savefig("../figures/linear_multigrid_heatbar.png", bbox_inches="tight")
+    plt.savefig(outpath.joinpath("linear_multigrid_heatbar.png"), bbox_inches="tight")
 
 
 def make_linear_multigrid(JSON_file, output_folder):

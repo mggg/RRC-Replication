@@ -1,9 +1,9 @@
 """
-Updated: 16-01-2025
+Last Updated: 10-11-2025 (Nov 10)
 Author: Peter Rock <peter@mggg.org>
 
 This script is used to generate the boxplots for the Democratic Vote Shares for
-each of the districts in VA. Boxplots are constructed for three different 
+each of the districts in VA. Boxplots are constructed for three different
 ensembles of Reversible ReCom and one ensemble of Forest ReCom.
 
 The reversible ensembles each contain 5B proposed steps and start from 3 different seed
@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from pathlib import Path
 from helper_files.box_share_helpers import get_weighted_stats, weighted_quantile
+from helper_files.legend_saver import save_legend_png, box_handles
 
 colors = [
     "#0099cd",
@@ -28,12 +29,12 @@ if __name__ == "__main__":
     script_dir = Path(__file__).resolve().parent
     top_dir = script_dir.parents[1]
 
-    reversible_sample_1 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_12_20241106_152157_tallies.parquet"
-    reversible_sample_2 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_16_20240618_174413_tallies.parquet"
-    reversible_sample_3 = "../../hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_rand_dist_eps0p01_20241108_130356_tallies.parquet"
-    forest_sample = "../../hpc_files/hpc_processed_data/VA/VA_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_11_20241112_124346_tallies.parquet"
+    reversible_sample_1 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_12_20241106_152157_tallies.parquet"
+    reversible_sample_2 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_CD_16_20240618_174413_tallies.parquet"
+    reversible_sample_3 = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_RevReCom_steps_5000000000_rng_seed_278986_plan_rand_dist_eps0p01_20241108_130356_tallies.parquet"
+    forest_sample = f"{top_dir}/hpc_files/hpc_processed_data/VA/VA_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_11_20241112_124346_tallies.parquet"
 
-    out_folder = "../figures"
+    out_folder = f"{top_dir}/figure_and_table_generation/figures"
     out_path = Path(out_folder)
 
     # ======================
@@ -147,10 +148,11 @@ if __name__ == "__main__":
                 [boxplot_stats],
                 positions=[2 * (i + 1) + (j * 0.45)],
                 capprops={"color": colors[j]},
-                boxprops={"color": colors[j]},
+                boxprops={"facecolor": colors[j], "edgecolor": colors[j], "alpha": 0.6},
                 whiskerprops={"color": colors[j]},
                 medianprops={"color": colors[j]},
                 widths=0.35,
+                patch_artist=True,
             )
 
             # If we haven't already added a handle for this dataset's color, add one now.
@@ -165,18 +167,21 @@ if __name__ == "__main__":
     ax.set_xticks([2 * i + 0.75 for i in range(1, arrs[0].shape[1] + 1)])
     ax.set_xticklabels([i for i in range(1, arrs[0].shape[1] + 1)])
 
-    ax.legend(
-        handles=handles,
-        labels=[
-            "RevReCom Seed 1 (5B proposed)",
-            "RevReCom Seed 2 (5B proposed)",
-            "RevReCom Seed 3 (5B proposed)",
-            "Forest (10M proposed)",
-        ],
-        loc="upper left",
-        prop={"size": 16},
-    )
-
     plt.savefig(
         out_path.joinpath("dem_share_boxplots_VA.png"), dpi=300, bbox_inches="tight"
+    )
+
+    plt.close()
+
+    save_legend_png(
+        handles=handles,
+        filename=out_path.joinpath("dem_share_boxplots_VA_legend.png"),
+        labels=[
+            "RevReCom 1",
+            "RevReCom 2",
+            "RevReCom 3",
+            "Forest",
+        ],
+        label_fontsize=16,
+        frameon=True,
     )

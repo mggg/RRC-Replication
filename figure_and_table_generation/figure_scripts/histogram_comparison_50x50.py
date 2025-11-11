@@ -1,5 +1,5 @@
 """
-Last Updated: 25-02-2025
+Last Updated: 10-11-2025 (Nov 10)
 Author: Peter Rock <peter@mggg.org>
 
 This script is used to generate the histograms for comparing the 50x50 cut edge distributions
@@ -11,6 +11,7 @@ from glob import glob
 import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
+from helper_files.legend_saver import save_legend_png, box_handles
 
 colors = [
     "#0099cd",
@@ -69,17 +70,26 @@ def make_method_plot(rrc_forest, lower, upper, n_dists, methods="forest_rrc"):
             edgecolor=None,
             color=colors[i],
             alpha=0.8,
-            label=n,
+            # label=n,
         )
 
     ax.set_xlim(lower - 20, upper + 20)
     ax.set_xticks(list(range(lower, upper, 50)))
     ax.set_xticklabels([str(i) for i in range(lower, upper, 50)], fontsize=16)
     ax.set_yticks([])
-    ax.legend(loc="right", bbox_to_anchor=(1.21, 0.5), prop={"size": 16})
+    # ax.legend(loc="right", bbox_to_anchor=(1.21, 0.5), prop={"size": 16})
     plt.savefig(
         out_path.joinpath(f"50x50_{n_dists}_dist_{methods}_comparison.png"),
         bbox_inches="tight",
+    )
+
+    labels = list(rrc_forest.keys())
+    handles = box_handles(labels, colors[: len(labels)])
+    save_legend_png(
+        handles,
+        out_path.joinpath(f"50x50_{n_dists}_dist_{methods}_comparison_legend.png"),
+        label_fontsize=16,
+        frameon=True,
     )
 
 
@@ -115,8 +125,9 @@ def make_recom_plot(lower, upper, n_dists, glob_expr):
 
     for file in recom_files:
         lst = file.name.split("_")
-        all_recom_files[f"{lst[1]} (1B proposed)"] = file
+        all_recom_files[f"{lst[1]}"] = file
 
+    zorders = [0, 3, 2, 1]
     for i, (n, f) in enumerate(all_recom_files.items()):
         df = pd.read_parquet(f)
         prob_df = df.groupby("cut_edges").sum().reset_index()
@@ -129,17 +140,27 @@ def make_recom_plot(lower, upper, n_dists, glob_expr):
             edgecolor=None,
             color=colors[i + 3],
             alpha=0.8,
-            label=n.replace("ReCom", "ReCom-"),
+            zorder=zorders[i],
         )
 
     ax.set_xlim(lower - 20, upper + 20)
     ax.set_xticks(list(range(lower, upper, 50)))
     ax.set_xticklabels([str(i) for i in range(lower, upper, 50)], fontsize=16)
     ax.set_yticks([])
-    ax.legend(loc="right", bbox_to_anchor=(1.19, 0.5), prop={"size": 16})
     plt.savefig(
         out_path.joinpath(f"50x50_{n_dists}_dist_ReCom_comparison.png"),
         bbox_inches="tight",
+    )
+
+    labels = list(
+        map(lambda x: str(x).replace("ReCom", "ReCom-"), all_recom_files.keys())
+    )
+    handles = box_handles(labels, colors[3 : 3 + len(labels)])
+    save_legend_png(
+        handles,
+        out_path.joinpath(f"50x50_{n_dists}_dist_ReCom_comparison_legend.png"),
+        label_fontsize=16,
+        frameon=True,
     )
 
 
@@ -148,43 +169,43 @@ if __name__ == "__main__":
     top_dir = script_dir.parents[1]
 
     rrc_forest_10 = {
-        "RevReCom (10B proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x5_strip_20240618_174413_cut_edges.parquet",
-        "Forest (10M proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_10_20240830_142334_cut_edges.parquet",
+        "RevReCom": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x5_strip_20240618_174413_cut_edges.parquet",
+        "Forest": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_10_20240830_142334_cut_edges.parquet",
     }
 
     rrc_forest_smc_10 = rrc_forest_10.copy()
-    rrc_forest_smc_10["SMC (100K)"] = (
+    rrc_forest_smc_10["SMC"] = (
         f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_10_20250129_150813_cut_edges.parquet"
     )
 
-    # make_method_plot(rrc_forest_10, 350, 601, 10, "forest_rrc")
-    # make_method_plot(rrc_forest_smc_10, 350, 601, 10, "forest_rrc_smc")
+    make_method_plot(rrc_forest_10, 350, 601, 10, "forest_rrc")
+    make_method_plot(rrc_forest_smc_10, 350, 601, 10, "forest_rrc_smc")
     make_recom_plot(350, 601, 10, "*_ReCom*50x5_*")
 
     rrc_forest_25 = {
-        "RevReCom (10B proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_10x10_square_20240618_174413_cut_edges.parquet",
-        "Forest (10M proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_25_20240830_142334_cut_edges.parquet",
+        "RevReCom": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_10x10_square_20240618_174413_cut_edges.parquet",
+        "Forest": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_25_20240830_142334_cut_edges.parquet",
     }
 
     rrc_forest_smc_25 = rrc_forest_25.copy()
-    rrc_forest_smc_25["SMC (100K)"] = (
+    rrc_forest_smc_25["SMC"] = (
         f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_25_20250129_150813_cut_edges.parquet"
     )
 
-    # make_method_plot(rrc_forest_25, 650, 851, 25, "forest_rrc")
-    # make_method_plot(rrc_forest_smc_25, 650, 851, 25, "forest_rrc_smc")
+    make_method_plot(rrc_forest_25, 650, 851, 25, "forest_rrc")
+    make_method_plot(rrc_forest_smc_25, 650, 851, 25, "forest_rrc_smc")
     make_recom_plot(650, 851, 25, "*_ReCom*10x10_*")
 
     rrc_forest_50 = {
-        "RevReCom (10B proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x1_strip_20240618_174413_cut_edges.parquet",
-        "Forest (10M proposed)": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_50_20240830_142334_cut_edges.parquet",
+        "RevReCom": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_RevReCom_steps_10000000000_plan_50x1_strip_20240618_174413_cut_edges.parquet",
+        "Forest": f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_Forest_steps_10000000_rng_seed_278986_gamma_0.0_alpha_1.0_ndists_50_20240830_142334_cut_edges.parquet",
     }
 
     rrc_forest_smc_50 = rrc_forest_50.copy()
-    rrc_forest_smc_50["SMC (100K)"] = (
+    rrc_forest_smc_50["SMC"] = (
         f"{top_dir}/hpc_files/hpc_processed_data/50x50/50x50_SMC_batch_size_100000_rng_seed_278986_dists_50_20250129_150813_cut_edges.parquet"
     )
 
-    # make_method_plot(rrc_forest_50, 900, 1151, 50, "forest_rrc")
-    # make_method_plot(rrc_forest_smc_50, 900, 1151, 50, "forest_rrc_smc")
+    make_method_plot(rrc_forest_50, 900, 1151, 50, "forest_rrc")
+    make_method_plot(rrc_forest_smc_50, 900, 1151, 50, "forest_rrc_smc")
     make_recom_plot(900, 1180, 50, "*_ReCom*50x1_*")

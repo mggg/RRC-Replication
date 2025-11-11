@@ -1,5 +1,5 @@
 """
-Last Updated: 16-01-2025
+Last Updated: 10-11-2025 (Nov 10)
 Author: Peter Rock <peter@mggg.org>
 
 This script is used to generate the Wasserstein trace plots for the VA ensembles.
@@ -8,6 +8,7 @@ This script is used to generate the Wasserstein trace plots for the VA ensembles
 import pandas as pd
 from pathlib import Path
 from helper_files.wasserstein_trace_tally import wasserstein_trace_shares
+from helper_files.legend_saver import save_legend_png, marker_handles
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -158,7 +159,6 @@ if __name__ == "__main__":
         ax=ax,
         linewidth=3,
         color=colors[0],
-        label="RevReCom Seed 1 vs RevReCom Seed 2",
     )
     sns.lineplot(
         x=was_full_1f_ticks,
@@ -166,7 +166,6 @@ if __name__ == "__main__":
         ax=ax,
         linewidth=3,
         color=colors[1],
-        label="RevReCom Seed 1 vs Forest",
     )
     sns.lineplot(
         x=was_full_2f_ticks,
@@ -174,10 +173,8 @@ if __name__ == "__main__":
         ax=ax,
         linewidth=3,
         color=colors[3],
-        label="RevReCom Seed 1 vs Forest",
     )
 
-    ax.legend(prop={"size": 20})
     ax.tick_params(axis="both", labelsize=14)
     ax.set_xlabel("accepted", loc="right", fontsize=12)
     ticks = list(range(250_000, 2_000_000, 250_000))
@@ -190,4 +187,24 @@ if __name__ == "__main__":
             "Wasserstein_distances_VA_comparison_Dem_Shares_rrc_and_forest.png"
         ),
         bbox_inches="tight",
+    )
+    plt.close()
+
+    labels = [
+        "RevReCom1 vs RevReCom2",
+        "RevReCom1 vs Forest",
+        "RevReCom2 vs Forest",
+    ]
+    colors_legend = [colors[0], colors[1], colors[3]]
+    handles = marker_handles(labels=labels, colors=colors_legend, linestyle="-")
+
+    save_legend_png(
+        handles=handles,
+        filename=out_path.joinpath(
+            "Wasserstein_distances_VA_comparison_Dem_Shares_rrc_and_forest_legend.png"
+        ),
+        ncol=1,
+        frameon=True,
+        dpi=200,
+        label_fontsize=14,
     )

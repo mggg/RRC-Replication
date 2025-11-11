@@ -1,5 +1,5 @@
 """
-Last Updated: 16-01-2025
+Last Updated: 10-11-2025 (Nov 10)
 Author: Peter Rock <peter@mggg.org>
 
 This script is used to generate the Wasserstein trace plots for the 7x7 grid.
@@ -11,20 +11,23 @@ from helper_files.wasserstein_trace_tally import (
     wasserstein_trace,
     wasserstein_trace_ground_truth,
 )
-import numpy as np
+from helper_files.legend_saver import save_legend_png, marker_handles
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 colors = [
-    "#0099cd",
+    # "#0099cd",
+    "#8cd1c4",
     "#00cd99",
-    "#ffca5d",
+    # "#ffca5d",
+    "#69369c",
     "#99cd00",
     "#cd0099",
     "#9900cd",
     "#8dd3c7",
     "#bebada",
-    "#fb8072",
+    # "#fb8072",
+    "#c92b91",
     "#80b1d3",
 ]
 
@@ -126,7 +129,6 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[0],
-        label="RevReCom Seed 1 vs RevReCom Seed 2",
     )
     sns.lineplot(
         x=was_rev1_ticks,
@@ -134,7 +136,6 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[2],
-        label="RevReCom Seed 1 vs full",
     )
     sns.lineplot(
         x=was_rev2_ticks,
@@ -142,7 +143,6 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[8],
-        label="RevReCom Seed 2 vs full",
     )
     sns.lineplot(
         x=was_forest_ticks,
@@ -150,7 +150,6 @@ def make_rev_forest_comparison(
         ax=ax,
         linewidth=3,
         color=colors[1],
-        label="Forest vs full",
     )
 
     plot_tick_step = 500_000
@@ -159,11 +158,31 @@ def make_rev_forest_comparison(
     ax.set_xticklabels([f"{i/1_000_000:0}M" for i in plot_tick_list])
     ax.set_xlim(0, 4_900_000)
     ax.set_xlabel("accepted", loc="right", fontsize=12)
-    ax.legend(loc="upper right")
 
     plt.savefig(
         out_path.joinpath("Wasserstein_distances_7x7_compare_reversible_forest.png"),
         bbox_inches="tight",
+    )
+
+    plt.close()
+
+    labels = [
+        "RevReCom1 vs RevReCom2",
+        "RevReCom1 vs full",
+        "RevReCom2 vs full",
+        "Forest vs full",
+    ]
+    colors_legend = [colors[0], colors[2], colors[8], colors[1]]
+    handles = marker_handles(labels=labels, colors=colors_legend, linestyle="-")
+    save_legend_png(
+        handles=handles,
+        filename=out_path.joinpath(
+            "Wasserstein_distances_7x7_compare_reversible_forest_legend.png"
+        ),
+        ncol=1,
+        frameon=True,
+        dpi=200,
+        label_fontsize=14,
     )
 
 
@@ -252,40 +271,38 @@ def make_recom_comparison(
     )
 
     for i in range(17):
-        ax.axhline(y=0.1 * i, color="lightgrey", linewidth=1)
+        ax.axhline(y=0.1 * i, color="#bbb", linewidth=2.5)
+
+    linewidth = 5
 
     if n_accepted > 4_000_000:
         sns.lineplot(
             x=was_recomA_ticks,
             y=was_distances_recomA,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[3],
-            label=f"ReCom-A vs full",
         )
         sns.lineplot(
             x=was_recomB_ticks,
             y=was_distances_recomB,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[4],
-            label=f"ReCom-B vs full",
         )
         sns.lineplot(
             x=was_recomC_ticks,
             y=was_distances_recomC,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[5],
-            label=f"ReCom-C vs full",
         )
         sns.lineplot(
             x=was_recomD_ticks,
             y=was_distances_recomD,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[6],
-            label=f"ReCom-D vs full",
         )
         plot_tick_list = list(range(2_000_000, n_accepted + 1_000_000, 2_000_000))
         ax.set_xticks(plot_tick_list)
@@ -296,47 +313,64 @@ def make_recom_comparison(
             x=was_recomA_ticks,
             y=was_distances_recomA,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[3],
-            label=f"ReComA vs full",
         )
         sns.lineplot(
             x=was_recomB_ticks,
             y=was_distances_recomB,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[4],
-            label=f"ReComB vs full",
         )
         sns.lineplot(
             x=was_recomC_ticks,
             y=was_distances_recomC,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[5],
-            label=f"ReComC vs full",
         )
         sns.lineplot(
             x=was_recomD_ticks,
             y=was_distances_recomD,
             ax=ax,
-            linewidth=3,
+            linewidth=linewidth,
             color=colors[6],
-            label=f"ReComD vs full",
         )
         plot_tick_list = list(range(10_000, n_accepted, 10_000))
         ax.set_xticks(plot_tick_list)
         ax.set_xticklabels([f"{i//1_000}k" for i in plot_tick_list])
 
     ax.set_xlim(0, 0.99 * n_accepted)
-    ax.legend(loc="upper right")
-    ax.set_xlabel("accepted", loc="right", fontsize=12)
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=16)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=16)
+    ax.set_xlabel("accepted", loc="right", fontsize=16)
 
     plt.savefig(
         out_path.joinpath(
             f"Wasserstein_distances_7x7_recom_comparison_{n_accepted}_n_accepted.png"
         ),
         bbox_inches="tight",
+    )
+    plt.close()
+
+    labels = [
+        "ReCom-A vs full",
+        "ReCom-B vs full",
+        "ReCom-C vs full",
+        "ReCom-D vs full",
+    ]
+    colors_legend = [colors[3], colors[4], colors[5], colors[6]]
+    handles = marker_handles(labels=labels, colors=colors_legend, linestyle="-")
+    save_legend_png(
+        handles=handles,
+        filename=out_path.joinpath(
+            f"Wasserstein_distances_7x7_recom_comparison_{n_accepted}_n_accepted_legend.png"
+        ),
+        ncol=1,
+        frameon=True,
+        dpi=200,
+        label_fontsize=14,
     )
 
 
