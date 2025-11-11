@@ -5,7 +5,7 @@
 Main limiting factor was runtime. Also the memory requirements for the version of R and SMC that
 we were using were pretty high (90+ GB).
 
-|   Method   | Number of Samples |
+|   Method   |    Sample Size    |
 | ---------- | ----------------- |
 | ReCom ABCD |    100,000,000    |
 | RevReCom   |   5,000,000,000   |
